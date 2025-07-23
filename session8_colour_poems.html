@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 8: Colour Poems - A Sensory Adventure</title>
+    <style>
+        :root {
+            --gradient-main: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-header: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-activity: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            --gradient-support: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            --color-enabler: #e3f2fd;
+            --color-enabler-border: #2196f3;
+            --color-extender: #fff3e0;
+            --color-extender-border: #ff9800;
+            --color-success: #28a745;
+            --color-warning: #ffc107;
+            --font-stack: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-stack);
+            line-height: 1.6;
+            color: #222;
+            background: var(--gradient-main);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: var(--gradient-header);
+            color: white;
+            padding: 20px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.1) 10px,
+                rgba(255,255,255,0.1) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .navigation {
+            background: #f8f9fa;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .nav-button {
+            padding: 12px 24px;
+            border: none;
+            background: #6c757d;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: #5a6268;
+        }
+
+        .nav-button.active {
+            background: #007bff;
+            box-shadow: 0 0 15px rgba(0,123,255,0.3);
+        }
+
+        .nav-button.visited {
+            background: #28a745;
+        }
+
+        /* Visual Learning Aids */
+        .sense-icon {
+            font-size: 1.5em;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 25px;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            background: #e9ecef;
+            border-radius: 20px;
+            margin: 0 5px;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active {
+            background: var(--color-success);
+            color: white;
+        }
+
+        .progress-step.completed {
+            background: #6c757d;
+            color: white;
+        }
+
+        .progress-arrow {
+            margin: 0 10px;
+            color: #6c757d;
+            font-size: 1.2em;
+        }
+
+        /* Interactive Examples */
+        .interactive-example {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .reveal-button {
+            background: #17a2b8;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+        }
+
+        .reveal-button:hover {
+            background: #138496;
+            transform: translateY(-1px);
+        }
+
+        .reveal-button.revealed {
+            background: #6c757d;
+        }
+
+        .hidden-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .hidden-content.revealed {
+            display: block;
+        }
+
+        .poem-line {
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .poem-line:hover {
+            background: #f8f9fa;
+            transform: translateX(5px);
+        }
+
+        .poem-line.sounds { border-left: 4px solid #ff6b6b; }
+        .poem-line.tastes { border-left: 4px solid #4fc3f7; }
+        .poem-line.textures { border-left: 4px solid #81c784; }
+        .poem-line.smells { border-left: 4px solid #ffb74d; }
+        .poem-line.feelings { border-left: 4px solid #ba68c8; }
+
+        .think-bubble {
+            display: none;
+            position: absolute;
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 15px;
+            padding: 15px;
+            max-width: 300px;
+            z-index: 200;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .think-bubble::before {
+            content: '💭';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 1.5em;
+        }
+
+        /* Success Criteria Checkboxes */
+        .success-checkbox {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #28a745;
+            border-radius: 4px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            vertical-align: middle;
+        }
+
+        .success-checkbox:hover {
+            background: #e8f5e8;
+        }
+
+        .success-checkbox.checked {
+            background: #28a745;
+        }
+
+        .success-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            top: -2px;
+            left: 3px;
+            font-weight: bold;
+        }
+
+        /* Self-Assessment Tools */
+        .assessment-slider {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #007bff;
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .slider {
+            flex: 1;
+            margin: 0 15px;
+            -webkit-appearance: none;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #007bff;
+            cursor: pointer;
+        }
+
+        .slider-label {
+            font-size: 0.9em;
+            color: #666;
+            min-width: 80px;
+        }
+
+        /* Inline Resource Links */
+        .inline-resource {
+            display: inline-flex;
+            align-items: center;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.85em;
+            margin: 0 3px;
+            transition: all 0.2s ease;
+            border: 1px solid #bbdefb;
+        }
+
+        .inline-resource:hover {
+            background: #1976d2;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(25,118,210,0.3);
+        }
+
+        .inline-resource::before {
+            content: '📎';
+            margin-right: 4px;
+            font-size: 0.9em;
+        }
+
+        .inline-resource.download::before {
+            content: '💾';
+        }
+
+        .inline-resource.external::before {
+            content: '🔗';
+        }
+
+        .inline-resource.material::before {
+            content: '📄';
+        }
+
+        .slide {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s ease-in;
+            position: relative;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .visual-description {
+            display: none;
+        }
+
+        .slide-timer {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #343a40;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            z-index: 100;
+        }
+
+        .slide-timer.active {
+            background: var(--color-success);
+            animation: pulse 1s infinite;
+        }
+
+        .slide-timer.warning {
+            background: var(--color-warning);
+            color: #212529;
+        }
+
+        .slide-timer button {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            margin-left: 8px;
+            font-size: 1.1em;
+        }
+
+        .learning-box {
+            background: #e9ecef;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 5px solid #007bff;
+        }
+
+        .learning-intent {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .success-criteria {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .success-criteria li {
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .success-criteria li:before {
+            content: '✓ ';
+            color: var(--color-success);
+            font-weight: bold;
+        }
+
+        .activity-box {
+            background: var(--gradient-activity);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .step-list {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .teacher-tip {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #0c5460;
+        }
+
+        .example-box {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .example-box.negative {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .code-example {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .code-example pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        .metacognitive-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .support-section {
+            background: var(--color-enabler);
+            border: 2px solid var(--color-enabler-border);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .challenge-section {
+            background: var(--color-extender);
+            border: 2px solid var(--color-extender-border);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .resource-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .resource-item.downloadable {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+
+        .resource-item.downloadable::after {
+            content: ' 💾';
+            font-size: 1.2em;
+        }
+
+        .gallery-preview {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .poem-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .sticky-note {
+            background: #ffeb3b;
+            padding: 5px 10px;
+            border-radius: 5px;
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            font-size: 0.9em;
+            transform: rotate(5deg);
+        }
+
+        .closing-activity {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .exit-question {
+            background: #fff9c4;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #ffc107;
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .timing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .timing-table td {
+            padding: 10px;
+            border: 1px solid #dee2e6;
+        }
+
+        .timing-table .total {
+            background: #e9ecef;
+            font-weight: bold;
+        }
+
+        .curriculum-links {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .interactive-button {
+            background: var(--color-success);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px 0;
+        }
+
+        .interactive-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        #timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #343a40;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        #timer.warning {
+            background: var(--color-warning);
+            color: #212529;
+            animation: pulse 1s infinite;
+        }
+
+        .present-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .present-controls button {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .present-controls button:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+
+        /* Fullscreen Enhancement */
+        body:-webkit-full-screen .container {
+            max-width: 100vw;
+            margin: 0;
+            border-radius: 0;
+            height: 100vh;
+        }
+
+        body:-moz-full-screen .container {
+            max-width: 100vw;
+            margin: 0;
+            border-radius: 0;
+            height: 100vh;
+        }
+
+        body:fullscreen .container {
+            max-width: 100vw;
+            margin: 0;
+            border-radius: 0;
+            height: 100vh;
+        }
+
+        @media (max-width: 768px) {
+            .container { margin: 10px; }
+            .header h1 { font-size: 2em; }
+            .navigation { flex-direction: column; }
+            .nav-button { width: 100%; margin: 5px 0; }
+            .slide { padding: 20px; }
+            .resources-grid { grid-template-columns: 1fr; }
+        }
+
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; }
+            #timer, .present-controls, .navigation, .slide-timer { display: none !important; }
+            .slide { 
+                display: block !important; 
+                page-break-after: always;
+                margin-bottom: 20px;
+            }
+            .header::before { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Session 8: Colour Poems</h1>
+            <p class="subtitle">A Sensory Adventure</p>
+        </header>
+        
+        <nav class="navigation">
+            <button class="nav-button active" onclick="showSlide(0)">Learning Intent</button>
+            <button class="nav-button" onclick="showSlide(1)">Warm Up</button>
+            <button class="nav-button" onclick="showSlide(2)">Launch (I Do)</button>
+            <button class="nav-button" onclick="showSlide(3)">Launch (We Do)</button>
+            <button class="nav-button" onclick="showSlide(4)">Explore</button>
+            <button class="nav-button" onclick="showSlide(5)">Review</button>
+            <button class="nav-button" onclick="showSlide(6)">Resources</button>
+        </nav>
+        
+        <main>
+            <!-- Slide 1: Learning Intent & Success Criteria -->
+            <section id="slide-0" class="slide active">
+                <!-- Visual descriptions are not displayed - images or blank space only -->
+                
+                <h2>Learning Intent & Success Criteria</h2>
+                
+                <div class="learning-box">
+                    <h3>Learning Intention:</h3>
+                    <p class="learning-intent">I am learning to create vivid colour poems that bring colours to life using all my senses and original word choices.</p>
+                </div>
+                
+                <div class="learning-box">
+                    <h3>Success Criteria:</h3>
+                    <ul class="success-criteria">
+                        <li><span class="success-checkbox" onclick="toggleSuccessCheckbox(this)"></span>I can describe a colour using at least three different senses (not just sight)</li>
+                        <li><span class="success-checkbox" onclick="toggleSuccessCheckbox(this)"></span>I can dodge overused comparisons and create fresh, surprising images</li>
+                        <li><span class="success-checkbox" onclick="toggleSuccessCheckbox(this)"></span>I can choose words that build a specific mood or feeling</li>
+                    </ul>
+                </div>
+                
+                <button class="interactive-button pulse" onclick="showSlide(1)">
+                    Let's Begin! →
+                </button>
+            </section>
+
+            <!-- Slide 2: Warm Up -->
+            <section id="slide-1" class="slide">
+                <!-- Visual descriptions are not displayed - images or blank space only -->
+                
+                <div class="slide-timer" data-duration="300">
+                    <span class="timer-text">⏱️ 5:00</span>
+                    <button onclick="startSlideTimer(this, 300)">▶️</button>
+                    <button onclick="resetSlideTimer(this, 300)">🔄</button>
+                </div>
+                
+                <h2>Warm Up: Sensory Colour Detective Sprint</h2>
+                
+                <div class="activity-box">
+                    <h3>The Challenge:</h3>
+                    <p>In pairs, you'll play "Colour Detective"!</p>
+                    
+                    <ol class="step-list">
+                        <li>Detective closes their eyes</li>
+                        <li>Partner picks a colour card (don't tell!)</li>
+                        <li>Partner gives <strong>rapid-fire sensory clues</strong> - 30 seconds:
+                            <ul>
+                                <li>"It sounds like..."</li>
+                                <li>"It tastes like..."</li>
+                                <li>"It feels like..."</li>
+                                <li>"It smells like..."</li>
+                            </ul>
+                        </li>
+                        <li>Detective guesses the colour!</li>
+                        <li>Switch roles - GO!</li>
+                    </ol>
+                </div>
+                
+                <aside class="teacher-tip">
+                    <strong>Teacher tip:</strong> Use <a href="#" class="inline-resource download" onclick="downloadResource('colour_cards.html')">basic colour cards</a> (red, blue, yellow, green, purple, orange). Model one quick example first!
+                </aside>
+            </section>
+
+            <!-- Slide 3: Launch (I Do) -->
+            <section id="slide-2" class="slide">
+                <!-- Visual descriptions are not displayed - images or blank space only -->
+                
+                <div class="slide-timer" data-duration="480">
+                    <span class="timer-text">⏱️ 8:00</span>
+                    <button onclick="startSlideTimer(this, 480)">▶️</button>
+                    <button onclick="resetSlideTimer(this, 480)">🔄</button>
+                </div>
+                
+                <h2>Launch: Breaking Out of Cliché Jail</h2>
+                
+                <h3>The Great Word Heist - "I Do"</h3>
+                
+                <p>Watch as I bust Purple out of Cliché Jail!</p>
+                
+                <div class="example-box negative">
+                    <h4>❌ First, let's lock up the boring suspects:</h4>
+                    <ul>
+                        <li>Grapes 🚫</li>
+                        <li>Royalty 🚫</li>
+                        <li>Flowers 🚫</li>
+                    </ul>
+                </div>
+                
+                <div class="interactive-example">
+                    <div class="progress-indicator">
+                        <div class="progress-step completed">🔒 Lock Clichés</div>
+                        <span class="progress-arrow">→</span>
+                        <div class="progress-step active">✨ Create Fresh Images</div>
+                        <span class="progress-arrow">→</span>
+                        <div class="progress-step">🎨 Build Mood</div>
+                    </div>
+                    
+                    <button class="reveal-button" id="reveal-poem" onclick="revealContent('reveal-poem', 'poem-content')">
+                        Show Example Poem
+                    </button>
+                    
+                    <div class="code-example hidden-content" id="poem-content">
+                        <h4>Now, my jailbreak poem:</h4>
+                        <div id="interactive-poem">
+                            <div style="text-align: center; font-weight: bold; margin-bottom: 10px;">Purple</div>
+                            <div class="poem-line tastes" onclick="showThinkBubble(this, 'taste-bubble')">
+                                <span class="sense-icon">👅</span>Tastes like frozen blackberries before they're sweet
+                            </div>
+                            <div class="poem-line sounds" onclick="showThinkBubble(this, 'sound-bubble')">
+                                <span class="sense-icon">👂</span>Sounds like static on an old TV at midnight
+                            </div>
+                            <div class="poem-line textures" onclick="showThinkBubble(this, 'texture-bubble')">
+                                <span class="sense-icon">✋</span>Feels like velvet rubbed backwards - tiny electric sparks
+                            </div>
+                            <div class="poem-line smells" onclick="showThinkBubble(this, 'smell-bubble')">
+                                <span class="sense-icon">👃</span>Smells like thunderstorms trapped in glass jars
+                            </div>
+                            <div class="poem-line feelings" onclick="showThinkBubble(this, 'feeling-bubble')">
+                                <span class="sense-icon">💭</span>Is the breath you hold before blowing out birthday candles
+                            </div>
+                        </div>
+                        
+                        <!-- Think bubbles for each sense -->
+                        <div class="think-bubble" id="taste-bubble">
+                            Notice how this taste is specific and connects to anticipation - not just "sweet like grapes"
+                        </div>
+                        <div class="think-bubble" id="sound-bubble">
+                            This sound creates a mysterious, late-night mood - unexpected for a colour!
+                        </div>
+                        <div class="think-bubble" id="texture-bubble">
+                            The texture creates a physical sensation that matches purple's luxurious feel
+                        </div>
+                        <div class="think-bubble" id="smell-bubble">
+                            This smell evokes power and mystery - perfect for purple's mood
+                        </div>
+                        <div class="think-bubble" id="feeling-bubble">
+                            The emotion ties everything together - purple as anticipation and magic
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metacognitive-box">
+                    <h4>Notice how I:</h4>
+                    <ul>
+                        <li><span class="sense-icon">🌟</span>Used ALL senses + emotion</li>
+                        <li><span class="sense-icon">📖</span>Created mini-stories in each line</li>
+                        <li><span class="sense-icon">🎭</span>Built a mysterious, electric mood</li>
+                        <li><span class="sense-icon">⚡</span>Kept every image unexpected</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 4: Launch (We Do) -->
+            <section id="slide-3" class="slide">
+                <!-- Visual descriptions are not displayed - images or blank space only -->
+                
+                <div class="slide-timer" data-duration="420">
+                    <span class="timer-text">⏱️ 7:00</span>
+                    <button onclick="startSlideTimer(this, 420)">▶️</button>
+                    <button onclick="resetSlideTimer(this, 420)">🔄</button>
+                </div>
+                
+                <h2>Launch: Collaborative Word Heist</h2>
+                
+                <h3>The Great Red Robbery - "We Do"</h3>
+                
+                <p>Let's steal some amazing words for RED together!</p>
+                
+                <div class="activity-box">
+                    <h4>Step 1: Lock up the clichés! (30 seconds)</h4>
+                    <p>What boring red images should go to jail? (roses, blood, stop signs, hearts)</p>
+                    
+                    <h4>Step 2: The Sensory Heist (4 minutes)</h4>
+                    <ul>
+                        <li><strong>Sounds like:</strong> siren's wail, popcorn popping, angry whisper</li>
+                        <li><strong>Tastes like:</strong> chilli's sting, rust on a spoon, strawberry seeds</li>
+                        <li><strong>Feels like:</strong> sunburn's tight skin, embarrassment creeping up your neck</li>
+                        <li><strong>Smells like:</strong> hot car metal, mum's lipstick, autumn bonfire</li>
+                    </ul>
+                    
+                    <h4>Step 3: Quick Practice (2 minutes)</h4>
+                    <p>Turn to your partner - create ONE line about red using our stolen words!</p>
+                </div>
+            </section>
+
+            <!-- Slide 5: Explore -->
+            <section id="slide-4" class="slide">
+                <!-- Visual descriptions are not displayed - images or blank space only -->
+                
+                <div class="slide-timer" data-duration="900">
+                    <span class="timer-text">⏱️ 15:00</span>
+                    <button onclick="startSlideTimer(this, 900)">▶️</button>
+                    <button onclick="resetSlideTimer(this, 900)">🔄</button>
+                </div>
+                
+                <h2>Explore: Your Colour Creation</h2>
+                
+                <div class="activity-box">
+                    <h3>Your Sensory Mission - "You Do"</h3>
+                    <p><strong>Your Task:</strong></p>
+                    <ol class="step-list">
+                        <li>Choose your colour (<a href="#" class="inline-resource download" onclick="downloadResource('colour_cards.html')">card</a> or your own choice)</li>
+                        <li>Brainstorm sensory connections (2 mins)</li>
+                        <li>Draft your 5-7 line poem (10 mins)</li>
+                        <li>Highlight your strongest sensory line (1 min) - use <a href="#" class="inline-resource" onclick="alert('Highlighters available from teacher')">highlighters</a></li>
+                        <li>Share with your partner - get one "glow" feedback (2 mins)</li>
+                    </ol>
+                    <p><strong>Remember:</strong> Each line = one sense or feeling. No clichés allowed!</p>
+                </div>
+                
+                <div class="support-section">
+                    <h4>🤝 Support Station - Sensory Starters</h4>
+                    <p>(Available as <a href="#" class="inline-resource download" onclick="downloadResource('enabler_strips.html')">printed strips</a>)</p>
+                    <div class="code-example">
+                        <pre>[Colour] sounds like...
+When I touch [colour], it feels...
+[Colour] tastes of... not...
+It smells like... mixed with...
+[Colour] is the feeling of...</pre>
+                    </div>
+                </div>
+                
+                <div class="challenge-section">
+                    <h4>🚀 Challenge Corner - Abstract Colours</h4>
+                    <p>(Available as <a href="#" class="inline-resource download" onclick="downloadResource('extender_challenges.html')">printed strips</a>)</p>
+                    <p>Instead of basic colours, try:</p>
+                    <ul>
+                        <li>Jealousy Green</li>
+                        <li>Victory Gold</li>
+                        <li>Anxiety Yellow</li>
+                        <li>The Colour of Tuesday</li>
+                        <li>Boredom Beige</li>
+                        <li>Curiosity Orange</li>
+                    </ul>
+                    <p>Make at least one line mix senses: "Fear tastes purple" or "Monday sounds grey"</p>
+                </div>
+                
+                <div class="resources-grid">
+                    <div class="resource-item downloadable" onclick="downloadResource('enabler_strips.html')">
+                        📄 Enabler Support Strips
+                    </div>
+                    <div class="resource-item downloadable" onclick="downloadResource('extender_challenges.html')">
+                        📄 Challenge Extensions
+                    </div>
+                    <div class="resource-item downloadable" onclick="downloadResource('colour_cards.html')">
+                        🎨 Colour Reference Cards
+                    </div>
+                    <div class="resource-item downloadable" onclick="downloadResource('sensory_word_bank.html')">
+                        📝 Sensory Word Bank
+                    </div>
+                </div>
+                
+            </section>
+
+            <!-- Slide 6: Review -->
+            <section id="slide-5" class="slide">
+                <!-- Visual descriptions are not displayed - images or blank space only -->
+                
+                <div class="slide-timer" data-duration="300">
+                    <span class="timer-text">⏱️ 5:00</span>
+                    <button onclick="startSlideTimer(this, 300)">▶️</button>
+                    <button onclick="resetSlideTimer(this, 300)">🔄</button>
+                </div>
+                
+                <h2>Review: Colour Gallery & Glow Notes</h2>
+                
+                <div class="gallery-preview">
+                    <h3>Gallery Celebration</h3>
+                    <div class="poem-card">
+                        <h4>Your Gallery Mission:</h4>
+                        <ol>
+                            <li>Display your poem on your desk</li>
+                            <li>Take 2 sticky notes</li>
+                            <li>Silent gallery walk - read at least 3 poems</li>
+                            <li>Leave "Glow Notes" on your 2 favourites:
+                                <ul>
+                                    <li>Star the strongest sensory line</li>
+                                    <li>Name the mood it created</li>
+                                </ul>
+                            </li>
+                        </ol>
+                        <div class="sticky-note">⭐ Example Glow Note</div>
+                    </div>
+                </div>
+                
+                <div class="closing-activity">
+                    <h3>Closing Circle (2 mins)</h3>
+                    <p><strong>Stand if your poem includes:</strong></p>
+                    <ul>
+                        <li>A taste that surprised you</li>
+                        <li>A sound no one else would think of</li>
+                        <li>An emotion hidden in a colour</li>
+                        <li>A line that makes YOU proud</li>
+                    </ul>
+                </div>
+                
+                <div class="exit-question">
+                    <h4>Exit Question:</h4>
+                    <p><em>Which sense was hardest to write? Which was most fun?</em></p>
+                </div>
+            </section>
+
+            <!-- Slide 7: Teacher Resources -->
+            <section id="slide-6" class="slide">
+                <h2>Teacher Resources & Planning</h2>
+                
+                <div class="checklist-grid">
+                    <h3>Resources Checklist:</h3>
+                    <div class="resource-item">✓ <a href="#" class="inline-resource download" onclick="downloadResource('colour_cards.html')">Basic colour cards</a> (class set)</div>
+                    <div class="resource-item">✓ Sticky notes for Glow Notes</div>
+                    <div class="resource-item">✓ <a href="#" class="inline-resource download" onclick="downloadResource('sensory_word_bank.html')">Sensory word bank posters</a></div>
+                    <div class="resource-item">✓ Printed <a href="#" class="inline-resource download" onclick="downloadResource('enabler_strips.html')">enabler</a>/<a href="#" class="inline-resource download" onclick="downloadResource('extender_challenges.html')">extender strips</a></div>
+                    <div class="resource-item">✓ Highlighters</div>
+                    <div class="resource-item">✓ Timer for activities</div>
+                </div>
+                
+                <div class="timing-guide">
+                    <h3>Session Timeline:</h3>
+                    <table class="timing-table">
+                        <tr><td>Warm Up</td><td>5 mins</td></tr>
+                        <tr><td>Launch (I Do)</td><td>8 mins</td></tr>
+                        <tr><td>Launch (We Do)</td><td>7 mins</td></tr>
+                        <tr><td>Explore</td><td>15 mins</td></tr>
+                        <tr><td>Review</td><td>5 mins</td></tr>
+                        <tr class="total"><td>Total</td><td>40 mins</td></tr>
+                    </table>
+                </div>
+                
+                <div class="curriculum-links">
+                    <h3>Curriculum Alignment:</h3>
+                    <ul>
+                        <li>VCELA351: vocabulary choices, shades of meaning</li>
+                        <li>VCELA352: creating mood through word choice</li>
+                        <li>VCELY329: multimodal texts</li>
+                    </ul>
+                </div>
+                
+                <div class="teacher-tip">
+                    <h3>Next Session Preview:</h3>
+                    <p>These poems go straight into your poetry anthology! Next week: Shape poems that literally LOOK like what they describe!</p>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <div id="timer">
+        <span id="timer-display">40:00</span>
+        <button onclick="startTimer()" style="background:none;border:none;color:white;cursor:pointer;">⏯️</button>
+        <button onclick="resetTimer()" style="background:none;border:none;color:white;cursor:pointer;">🔄</button>
+    </div>
+    
+    <div class="present-controls">
+        <button onclick="toggleFullscreen()" title="Fullscreen (F)">🖥️</button>
+    </div>
+    
+    <script>
+        let currentSlide = 0;
+        let timerSeconds = 2400;
+        let timerInterval = null;
+        let slideTimers = new Map();
+        let visitedSlides = new Set();
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.slide');
+            const buttons = document.querySelectorAll('.nav-button');
+            
+            if (currentSlide >= 0) {
+                visitedSlides.add(currentSlide);
+            }
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            buttons.forEach((btn, i) => {
+                btn.classList.remove('active');
+                if (visitedSlides.has(i)) {
+                    btn.classList.add('visited');
+                }
+            });
+            
+            if (slides[index]) {
+                slides[index].classList.add('active');
+                buttons[index]?.classList.add('active');
+                currentSlide = index;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            const totalSlides = document.querySelectorAll('.slide').length;
+            
+            switch(e.key) {
+                case 'ArrowRight':
+                    if (currentSlide < totalSlides - 1) {
+                        showSlide(currentSlide + 1);
+                    }
+                    break;
+                case 'ArrowLeft':
+                    if (currentSlide > 0) {
+                        showSlide(currentSlide - 1);
+                    }
+                    break;
+                case 'f':
+                    toggleFullscreen();
+                    break;
+            }
+        });
+
+        function startTimer() {
+            if (timerInterval) {
+                pauseTimer();
+                return;
+            }
+            
+            timerInterval = setInterval(() => {
+                timerSeconds--;
+                updateTimerDisplay();
+                
+                if (timerSeconds <= 300) {
+                    document.getElementById('timer').classList.add('warning');
+                }
+                
+                if (timerSeconds <= 0) {
+                    pauseTimer();
+                    alert('Time\'s up! Great work everyone!');
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timerSeconds = 2400;
+            document.getElementById('timer').classList.remove('warning');
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('timer-display').textContent = display;
+        }
+
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement && 
+                !document.mozFullScreenElement && 
+                !document.webkitFullscreenElement && 
+                !document.msFullscreenElement) {
+                
+                const element = document.documentElement;
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.mozRequestFullScreen) {
+                    element.mozRequestFullScreen();
+                } else if (element.webkitRequestFullscreen) {
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) {
+                    element.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        function startSlideTimer(button, duration) {
+            const timerElement = button.parentElement;
+            const timerText = timerElement.querySelector('.timer-text');
+            const timerId = timerElement.dataset.duration;
+            
+            if (slideTimers.has(timerId)) {
+                clearInterval(slideTimers.get(timerId).interval);
+            }
+            
+            let remainingSeconds = duration;
+            timerElement.classList.add('active');
+            
+            const interval = setInterval(() => {
+                remainingSeconds--;
+                const minutes = Math.floor(remainingSeconds / 60);
+                const seconds = remainingSeconds % 60;
+                timerText.textContent = `⏱️ ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (remainingSeconds <= 60) {
+                    timerElement.classList.add('warning');
+                }
+                
+                if (remainingSeconds <= 0) {
+                    clearInterval(interval);
+                    timerElement.classList.remove('active', 'warning');
+                    slideTimers.delete(timerId);
+                    
+                    timerText.textContent = '⏰ Time up!';
+                    setTimeout(() => {
+                        resetSlideTimer(button, duration);
+                    }, 3000);
+                }
+            }, 1000);
+            
+            slideTimers.set(timerId, { interval, duration });
+        }
+
+        function resetSlideTimer(button, duration) {
+            const timerElement = button.parentElement;
+            const timerText = timerElement.querySelector('.timer-text');
+            const timerId = timerElement.dataset.duration;
+            
+            if (slideTimers.has(timerId)) {
+                clearInterval(slideTimers.get(timerId).interval);
+                slideTimers.delete(timerId);
+            }
+            
+            const minutes = Math.floor(duration / 60);
+            const seconds = duration % 60;
+            timerText.textContent = `⏱️ ${minutes}:${seconds.toString().padStart(2, '0')}`;
+            timerElement.classList.remove('active', 'warning');
+        }
+
+        function downloadResource(filename) {
+            let content = '';
+            let mimeType = 'text/html';
+            
+            switch(filename) {
+                case 'enabler_strips.html':
+                    content = generateEnablerStripsHTML();
+                    break;
+                case 'extender_challenges.html':
+                    content = generateExtenderChallengesHTML();
+                    break;
+                case 'colour_cards.html':
+                    content = generateColourCardsHTML();
+                    break;
+                case 'sensory_word_bank.html':
+                    content = generateSensoryWordBankHTML();
+                    break;
+            }
+            
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function generateEnablerStripsHTML() {
+            return `<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enabler Support Strips - Session 8</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .header { text-align: center; background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+        .header h1 { color: #1976d2; margin: 0; font-size: 2em; }
+        .header p { color: #666; margin: 10px 0 0 0; }
+        .strips-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .strip { background: white; border: 2px dashed #2196f3; border-radius: 8px; padding: 15px; margin: 10px 0; text-align: center; font-size: 1.1em; min-height: 60px; display: flex; align-items: center; justify-content: center; }
+        .strip.sentence-starter { background: #e8f5e8; border-color: #4caf50; }
+        .instructions { background: #fff3e0; border-left: 5px solid #ff9800; padding: 20px; margin: 30px 0; border-radius: 5px; }
+        .cut-line { border-top: 2px dashed #ccc; margin: 15px 0; }
+        @media print { body { background: white; } .header { background: #f0f0f0; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 Enabler Support Strips</h1>
+        <p>Session 8: Colour Poems - Cut along dashed lines</p>
+    </div>
+
+    <div class="strips-container">
+        <div class="strip">[Colour] sounds like...</div>
+        <div class="strip">When I touch [colour], it feels...</div>
+        <div class="strip">[Colour] tastes of... not...</div>
+        <div class="strip">It smells like... mixed with...</div>
+        <div class="strip">[Colour] is the feeling of...</div>
+        
+        <div class="cut-line"></div>
+        
+        <div class="strip sentence-starter">Red is like...</div>
+        <div class="strip sentence-starter">Blue makes me think of...</div>
+        <div class="strip sentence-starter">Green sounds like...</div>
+        <div class="strip sentence-starter">Yellow feels like...</div>
+        <div class="strip sentence-starter">Purple reminds me of...</div>
+    </div>
+
+    <div class="instructions">
+        <strong>📋 Instructions:</strong> Print this page on cardstock for durability. Cut along the dashed lines to create individual support strips. Distribute to students who need additional scaffolding during the colour poetry activity.
+    </div>
+</body>
+</html>`;
+        }
+
+        function generateExtenderChallengesHTML() {
+            return `<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge Extensions - Session 8</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .header { text-align: center; background: #fff3e0; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+        .header h1 { color: #f57c00; margin: 0; font-size: 2em; }
+        .header p { color: #666; margin: 10px 0 0 0; }
+        .challenge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .challenge-card { background: white; border: 3px solid #ff9800; border-radius: 12px; padding: 20px; }
+        .challenge-card h3 { color: #f57c00; margin-top: 0; }
+        .abstract-colors { background: #f3e5f5; border-color: #9c27b0; }
+        .abstract-colors h3 { color: #7b1fa2; }
+        .techniques { background: #e8f5e8; border-color: #4caf50; }
+        .techniques h3 { color: #388e3c; }
+        .color-item, .technique-item { background: rgba(255,255,255,0.8); margin: 8px 0; padding: 10px; border-radius: 6px; border-left: 4px solid currentColor; }
+        .instructions { background: #ffebee; border-left: 5px solid #f44336; padding: 20px; margin: 30px 0; border-radius: 5px; }
+        @media print { body { background: white; } .header { background: #f0f0f0; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 Challenge Extensions</h1>
+        <p>Session 8: Colour Poems - Advanced Activities</p>
+    </div>
+
+    <div class="challenge-grid">
+        <div class="challenge-card abstract-colors">
+            <h3>Abstract Colour Ideas</h3>
+            <div class="color-item">Jealousy Green</div>
+            <div class="color-item">Victory Gold</div>
+            <div class="color-item">Anxiety Yellow</div>
+            <div class="color-item">The Colour of Tuesday</div>
+            <div class="color-item">Boredom Beige</div>
+            <div class="color-item">Curiosity Orange</div>
+        </div>
+        
+        <div class="challenge-card techniques">
+            <h3>Advanced Techniques</h3>
+            <div class="technique-item">Mix two senses in one line</div>
+            <div class="technique-item">Create a colour that doesn't exist</div>
+            <div class="technique-item">Write from the colour's perspective</div>
+            <div class="technique-item">Use only questions in your poem</div>
+            <div class="technique-item">Create a colour based on a memory</div>
+        </div>
+    </div>
+
+    <div class="instructions">
+        <strong>🎯 Challenge Goal:</strong> Choose at least one abstract colour and one advanced technique. Create a poem that pushes beyond basic sensory descriptions into creative, unexpected territory. Example: "Monday sounds grey and tastes like forgotten dreams."
+    </div>
+</body>
+</html>`;
+        }
+
+        function generateColourCardsHTML() {
+            return `<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colour Reference Cards - Session 8</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .header { text-align: center; background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); padding: 20px; border-radius: 10px; margin-bottom: 30px; color: white; }
+        .header h1 { margin: 0; font-size: 2em; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .colour-card { background: white; border: 3px solid #ddd; border-radius: 12px; padding: 20px; text-align: center; min-height: 80px; display: flex; align-items: center; justify-content: center; font-size: 1.2em; font-weight: bold; }
+        .red { background: linear-gradient(135deg, #ff6b6b, #ee5a5a); color: white; border-color: #e53e3e; }
+        .blue { background: linear-gradient(135deg, #4fc3f7, #29b6f6); color: white; border-color: #0288d1; }
+        .yellow { background: linear-gradient(135deg, #fff176, #ffee58); color: #333; border-color: #fbc02d; }
+        .green { background: linear-gradient(135deg, #81c784, #66bb6a); color: white; border-color: #388e3c; }
+        .purple { background: linear-gradient(135deg, #ba68c8, #ab47bc); color: white; border-color: #7b1fa2; }
+        .orange { background: linear-gradient(135deg, #ffb74d, #ffa726); color: white; border-color: #f57c00; }
+        .pink { background: linear-gradient(135deg, #f48fb1, #f06292); color: white; border-color: #c2185b; }
+        .brown { background: linear-gradient(135deg, #a1887f, #8d6e63); color: white; border-color: #5d4037; }
+        .black { background: linear-gradient(135deg, #424242, #212121); color: white; border-color: #000; }
+        .white { background: linear-gradient(135deg, #fafafa, #f5f5f5); color: #333; border-color: #ccc; }
+        .grey { background: linear-gradient(135deg, #90a4ae, #78909c); color: white; border-color: #455a64; }
+        .turquoise { background: linear-gradient(135deg, #4dd0e1, #26c6da); color: white; border-color: #00acc1; }
+        .instructions { background: #e1f5fe; border-left: 5px solid #0288d1; padding: 20px; margin: 30px 0; border-radius: 5px; }
+        @media print { body { background: white; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 Colour Reference Cards</h1>
+        <p>Session 8: Visual inspiration for creative writing</p>
+    </div>
+
+    <div class="cards-grid">
+        <div class="colour-card red">RED</div>
+        <div class="colour-card blue">BLUE</div>
+        <div class="colour-card yellow">YELLOW</div>
+        <div class="colour-card green">GREEN</div>
+        <div class="colour-card purple">PURPLE</div>
+        <div class="colour-card orange">ORANGE</div>
+        <div class="colour-card pink">PINK</div>
+        <div class="colour-card brown">BROWN</div>
+        <div class="colour-card black">BLACK</div>
+        <div class="colour-card white">WHITE</div>
+        <div class="colour-card grey">GREY</div>
+        <div class="colour-card turquoise">TURQUOISE</div>
+    </div>
+
+    <div class="instructions">
+        <strong>📋 Usage Instructions:</strong> Print this page on heavy cardstock for best results. Cut out individual colour cards. Laminate for classroom durability. Use for the Colour Detective game, inspiration during writing time, or as visual prompts for students who learn better with visual cues.
+    </div>
+</body>
+</html>`;
+        }
+
+        function generateSensoryWordBankHTML() {
+            return `<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensory Word Bank - Session 8</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .header { text-align: center; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+        .header h1 { color: #333; margin: 0; font-size: 2em; }
+        .senses-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .sense-category { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .sounds { border-left: 5px solid #ff6b6b; }
+        .tastes { border-left: 5px solid #4fc3f7; }
+        .textures { border-left: 5px solid #81c784; }
+        .smells { border-left: 5px solid #ffb74d; }
+        .feelings { border-left: 5px solid #ba68c8; }
+        .sense-category h3 { margin-top: 0; color: #333; font-size: 1.3em; }
+        .sounds h3 { color: #e53e3e; }
+        .tastes h3 { color: #0288d1; }
+        .textures h3 { color: #388e3c; }
+        .smells h3 { color: #f57c00; }
+        .feelings h3 { color: #7b1fa2; }
+        .word-list { display: flex; flex-wrap: wrap; gap: 8px; }
+        .word { background: #f8f9fa; padding: 6px 12px; border-radius: 20px; font-size: 0.9em; border: 1px solid #dee2e6; }
+        .sounds .word { background: #ffebee; border-color: #ffcdd2; }
+        .tastes .word { background: #e3f2fd; border-color: #bbdefb; }
+        .textures .word { background: #e8f5e8; border-color: #c8e6c9; }
+        .smells .word { background: #fff3e0; border-color: #ffe0b2; }
+        .feelings .word { background: #f3e5f5; border-color: #e1bee7; }
+        .instructions { background: #e8f5e8; border-left: 5px solid #4caf50; padding: 20px; margin: 30px 0; border-radius: 5px; }
+        @media print { body { background: white; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📝 Sensory Word Bank</h1>
+        <p>Session 8: Rich vocabulary for vivid writing</p>
+    </div>
+
+    <div class="senses-grid">
+        <div class="sense-category sounds">
+            <h3>👂 SOUNDS</h3>
+            <div class="word-list">
+                <span class="word">whisper</span>
+                <span class="word">roar</span>
+                <span class="word">crackle</span>
+                <span class="word">hum</span>
+                <span class="word">ping</span>
+                <span class="word">thud</span>
+                <span class="word">sizzle</span>
+                <span class="word">chirp</span>
+                <span class="word">rustle</span>
+                <span class="word">echo</span>
+            </div>
+        </div>
+
+        <div class="sense-category tastes">
+            <h3>👅 TASTES</h3>
+            <div class="word-list">
+                <span class="word">tangy</span>
+                <span class="word">bitter</span>
+                <span class="word">sweet</span>
+                <span class="word">sour</span>
+                <span class="word">metallic</span>
+                <span class="word">spicy</span>
+                <span class="word">bland</span>
+                <span class="word">rich</span>
+                <span class="word">sharp</span>
+                <span class="word">smooth</span>
+            </div>
+        </div>
+
+        <div class="sense-category textures">
+            <h3>✋ TEXTURES</h3>
+            <div class="word-list">
+                <span class="word">rough</span>
+                <span class="word">silky</span>
+                <span class="word">bumpy</span>
+                <span class="word">smooth</span>
+                <span class="word">prickly</span>
+                <span class="word">soft</span>
+                <span class="word">hard</span>
+                <span class="word">squishy</span>
+                <span class="word">cold</span>
+                <span class="word">warm</span>
+            </div>
+        </div>
+
+        <div class="sense-category smells">
+            <h3>👃 SMELLS</h3>
+            <div class="word-list">
+                <span class="word">fresh</span>
+                <span class="word">musty</span>
+                <span class="word">sweet</span>
+                <span class="word">sharp</span>
+                <span class="word">earthy</span>
+                <span class="word">clean</span>
+                <span class="word">smoky</span>
+                <span class="word">floral</span>
+                <span class="word">fruity</span>
+                <span class="word">spicy</span>
+            </div>
+        </div>
+
+        <div class="sense-category feelings">
+            <h3>💭 FEELINGS</h3>
+            <div class="word-list">
+                <span class="word">excited</span>
+                <span class="word">nervous</span>
+                <span class="word">calm</span>
+                <span class="word">angry</span>
+                <span class="word">peaceful</span>
+                <span class="word">confused</span>
+                <span class="word">happy</span>
+                <span class="word">scared</span>
+                <span class="word">proud</span>
+                <span class="word">curious</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="instructions">
+        <strong>🖨️ Display Instructions:</strong> Print this page in colour and post around the classroom during writing activities. Students can refer to these words when they're stuck or want to upgrade their vocabulary choices. Perfect for interactive whiteboard display or laminated desk references.
+    </div>
+</body>
+</html>`;
+        }
+
+        // Educational Enhancement Functions
+        function toggleSuccessCheckbox(checkbox) {
+            checkbox.classList.toggle('checked');
+        }
+
+        function revealContent(buttonId, contentId) {
+            const button = document.getElementById(buttonId);
+            const content = document.getElementById(contentId);
+            
+            if (content.classList.contains('revealed')) {
+                content.classList.remove('revealed');
+                button.classList.remove('revealed');
+                button.textContent = button.dataset.originalText || 'Show Example Poem';
+            } else {
+                content.classList.add('revealed');
+                button.classList.add('revealed');
+                button.dataset.originalText = button.textContent;
+                button.textContent = 'Hide Example Poem';
+            }
+        }
+
+        function showThinkBubble(lineElement, bubbleId) {
+            // Hide all other bubbles first
+            document.querySelectorAll('.think-bubble').forEach(bubble => {
+                bubble.style.display = 'none';
+            });
+            
+            const bubble = document.getElementById(bubbleId);
+            const rect = lineElement.getBoundingClientRect();
+            
+            bubble.style.display = 'block';
+            bubble.style.position = 'fixed';
+            bubble.style.left = Math.min(rect.right + 10, window.innerWidth - 320) + 'px';
+            bubble.style.top = rect.top + 'px';
+            
+            // Hide after 4 seconds
+            setTimeout(() => {
+                bubble.style.display = 'none';
+            }, 4000);
+        }
+
+        function hideThinkBubble(bubbleId) {
+            document.getElementById(bubbleId).style.display = 'none';
+        }
+
+        function updateProgressStep(stepId, status) {
+            const step = document.getElementById(stepId);
+            step.classList.remove('active', 'completed');
+            step.classList.add(status);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showSlide(0);
+            updateTimerDisplay();
+            
+        });
+    </script>
+</body>
+</html>
+
+<!--
+Lesson: Session 8: Colour Poems - A Sensory Adventure
+Duration: 40 minutes
+Year Level: Primary (Years 3-6)
+Curriculum: VCELA351, VCELA352, VCELY329
+HITS: Setting Goals, Structuring Lessons, Explicit Teaching, Worked Examples, Differentiated Teaching, Metacognitive Strategies, Feedback, Multiple Exposures, Questioning
+VTLM: Planning, Attention & Focus, Knowledge & Memory, Explicit Teaching, Supported Application, Mastery & Application, Retention & Recall
+Generated: 2025-07-23
+-->
