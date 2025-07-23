@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 9: Digital Poetry Creation - Transform Your Words into Digital Art!</title>
+    <style>
+        :root {
+            --gradient-main: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-header: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-activity: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            --gradient-support: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            
+            --color-enabler: #e3f2fd;
+            --color-enabler-border: #2196f3;
+            --color-extender: #fff3e0;
+            --color-extender-border: #ff9800;
+            --color-success: #28a745;
+            --color-warning: #ffc107;
+            
+            --font-stack: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-stack);
+            line-height: 1.6;
+            color: #222;
+            background: var(--gradient-main);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: var(--gradient-header);
+            color: white;
+            padding: 20px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.1) 10px,
+                rgba(255,255,255,0.1) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            z-index: 1;
+            position: relative;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            z-index: 1;
+            position: relative;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            background: #f8f9fa;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            padding: 12px 24px;
+            border: none;
+            background: #6c757d;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: #5a6268;
+        }
+
+        .nav-button.active {
+            background: #007bff;
+            box-shadow: 0 0 15px rgba(0,123,255,0.3);
+        }
+
+        .nav-button.visited {
+            background: #28a745;
+        }
+
+        .slide {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s ease-in;
+            position: relative;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .slide-timer {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #343a40;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            z-index: 100;
+        }
+
+        .slide-timer.active {
+            background: var(--color-success);
+            animation: pulse 1s infinite;
+        }
+
+        .slide-timer.warning {
+            background: var(--color-warning);
+            color: #212529;
+        }
+
+        .slide-timer button {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            margin-left: 8px;
+            font-size: 1.1em;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        .learning-box {
+            background: var(--gradient-activity);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .learning-box h3 {
+            margin-top: 0;
+            color: #333;
+            font-size: 1.3em;
+        }
+
+        .learning-intent {
+            font-size: 1.1em;
+            font-weight: 500;
+            color: #2c3e50;
+            font-style: italic;
+        }
+
+        .success-criteria {
+            list-style: none;
+            padding: 0;
+        }
+
+        .success-criteria li {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            font-size: 1.05em;
+        }
+
+        .success-checkbox {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #28a745;
+            border-radius: 4px;
+            margin-right: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+
+        .success-checkbox:hover {
+            background: #e8f5e8;
+        }
+
+        .success-checkbox.checked {
+            background: #28a745;
+        }
+
+        .success-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            top: -2px;
+            left: 3px;
+            font-weight: bold;
+        }
+
+        .interactive-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 30px auto;
+        }
+
+        .interactive-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102,126,234,0.3);
+        }
+
+        .interactive-button.pulse {
+            animation: buttonPulse 2s infinite;
+        }
+
+        @keyframes buttonPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .activity-box {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .activity-box h3 {
+            color: #495057;
+            margin-top: 0;
+            font-size: 1.4em;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            margin: 15px 0;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #007bff;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .support-section {
+            background: var(--color-enabler);
+            border: 2px solid var(--color-enabler-border);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .support-section h4 {
+            color: var(--color-enabler-border);
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+
+        .challenge-section {
+            background: var(--color-extender);
+            border: 2px solid var(--color-extender-border);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .challenge-section h4 {
+            color: var(--color-extender-border);
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+
+        .teacher-tip {
+            background: #e8f5e8;
+            border-left: 5px solid #4caf50;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+
+        .inline-resource {
+            display: inline-flex;
+            align-items: center;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.85em;
+            margin: 0 3px;
+            transition: all 0.2s ease;
+            border: 1px solid #bbdefb;
+        }
+
+        .inline-resource:hover {
+            background: #1976d2;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(25,118,210,0.3);
+        }
+
+        .inline-resource::before {
+            content: '📎';
+            margin-right: 4px;
+            font-size: 0.9em;
+        }
+
+        .inline-resource.download::before {
+            content: '💾';
+        }
+
+        .inline-resource.material::before {
+            content: '📄';
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .resource-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #dee2e6;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .resource-item:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .resource-item.downloadable {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+
+        .resource-item.downloadable::after {
+            content: ' 💾';
+            font-size: 1.2em;
+        }
+
+        .digital-design-charter {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 3px solid #ff9800;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+
+        .digital-design-charter h3 {
+            color: #ef6c00;
+            margin-top: 0;
+            text-align: center;
+            font-size: 1.4em;
+        }
+
+        .charter-rules {
+            list-style: none;
+            padding: 0;
+        }
+
+        .charter-rules li {
+            margin: 12px 0;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+            border-left: 4px solid #ff9800;
+            font-weight: 500;
+        }
+
+        .charter-rules li::before {
+            content: '✓';
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .ipad-tips {
+            background: #f3e5f5;
+            border: 2px solid #9c27b0;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .ipad-tips h4 {
+            color: #7b1fa2;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .ipad-tips h4::before {
+            content: '📱';
+            margin-right: 10px;
+            font-size: 1.3em;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .tip-card {
+            background: rgba(255,255,255,0.8);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #9c27b0;
+        }
+
+        .tip-card strong {
+            color: #7b1fa2;
+        }
+
+        .gallery-preview {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .poem-card {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .poem-card::before {
+            content: '✨';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ffc107;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+        }
+
+        .sticky-note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            transform: rotate(-2deg);
+        }
+
+        .closing-activity {
+            background: var(--gradient-support);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .closing-activity h3 {
+            color: #2c3e50;
+            margin-top: 0;
+            font-size: 1.4em;
+        }
+
+        .closing-activity ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .closing-activity li {
+            background: rgba(255,255,255,0.8);
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 2px solid #17a2b8;
+            font-weight: 500;
+        }
+
+        .exit-question {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .exit-question h4 {
+            color: #856404;
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+
+        .exit-question p {
+            font-size: 1.1em;
+            font-style: italic;
+            color: #6c5ce7;
+            font-weight: 500;
+        }
+
+        .teacher-notes {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffcc80 100%);
+            border: 2px dashed #ff9800;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 100px;
+            position: relative;
+        }
+
+        .teacher-notes::before {
+            content: '📝 Teacher Notes';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #fff3e0;
+            padding: 0 10px;
+            font-weight: bold;
+            color: #ef6c00;
+        }
+
+        .editable-text {
+            background: #fff9c4;
+            border: 1px dashed #fbc02d;
+            padding: 10px;
+            border-radius: 8px;
+            min-height: 30px;
+            cursor: text;
+            transition: all 0.3s ease;
+        }
+
+        .editable-text:focus {
+            outline: none;
+            border: 2px solid #fbc02d;
+            box-shadow: 0 0 10px rgba(251,192,45,0.3);
+        }
+
+        .editable-text:empty::before {
+            content: 'Click to add your text...';
+            color: #999;
+            font-style: italic;
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+
+        .checklist-item::before {
+            content: '□';
+            margin-right: 10px;
+            font-size: 1.2em;
+            color: #28a745;
+        }
+
+        .timing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .timing-table td {
+            padding: 12px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+        .timing-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .timing-table tr.total {
+            background: #e3f2fd;
+            font-weight: bold;
+        }
+
+        #timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #343a40;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        #timer.warning {
+            background: var(--color-warning);
+            color: #212529;
+            animation: pulse 1s infinite;
+        }
+
+        .present-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .present-controls button {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .present-controls button:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .container { margin: 10px; }
+            .header h1 { font-size: 2em; }
+            .navigation { flex-direction: column; }
+            .nav-button { width: 100%; margin: 5px 0; }
+            .slide { padding: 20px; }
+            .resources-grid { grid-template-columns: 1fr; }
+            .gallery-preview { flex-direction: column; align-items: center; }
+        }
+
+        body:-webkit-full-screen .container {
+            max-width: 100vw;
+            margin: 0;
+            border-radius: 0;
+            height: 100vh;
+        }
+
+        body:-moz-full-screen .container {
+            max-width: 100vw;
+            margin: 0;
+            border-radius: 0;
+            height: 100vh;
+        }
+
+        body:fullscreen .container {
+            max-width: 100vw;
+            margin: 0;
+            border-radius: 0;
+            height: 100vh;
+        }
+
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; }
+            #timer, .present-controls, .navigation, .slide-timer, .teacher-notes { display: none !important; }
+            .slide { 
+                display: block !important; 
+                page-break-after: always;
+                margin-bottom: 20px;
+            }
+            .editable-text {
+                border: none;
+                background: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Session 9: Digital Poetry Creation</h1>
+            <p class="subtitle">Transform Your Words into Digital Art!</p>
+        </header>
+        
+        <nav class="navigation">
+            <button class="nav-button" onclick="showSlide(0)">Learning Intent</button>
+            <button class="nav-button" onclick="showSlide(1)">Font Feelings</button>
+            <button class="nav-button" onclick="showSlide(2)">Digital Toolkit</button>
+            <button class="nav-button" onclick="showSlide(3)">Design Rules</button>
+            <button class="nav-button" onclick="showSlide(4)">Create Masterpiece</button>
+            <button class="nav-button" onclick="showSlide(5)">Poetry Vault</button>
+            <button class="nav-button" onclick="showSlide(6)">Digital Gallery</button>
+            <button class="nav-button" onclick="showSlide(7)">Resources</button>
+        </nav>
+        
+        <main>
+            <!-- Slide 1: Learning Intent & Success Criteria -->
+            <section id="slide-0" class="slide active">
+                <h2>Learning Intent & Success Criteria</h2>
+                
+                <div class="learning-box">
+                    <h3>Learning Intention:</h3>
+                    <p class="learning-intent">I am learning to transform my poems into eye-catching digital masterpieces using technology as my creative publishing tool.</p>
+                </div>
+                
+                <div class="learning-box">
+                    <h3>Success Criteria:</h3>
+                    <ul class="success-criteria">
+                        <li><span class="success-checkbox" onclick="toggleSuccessCheckbox(this)"></span>I can type and format my poem to match its mood and meaning</li>
+                        <li><span class="success-checkbox" onclick="toggleSuccessCheckbox(this)"></span>I can add one powerful visual element that enhances my poetry's message</li>
+                        <li><span class="success-checkbox" onclick="toggleSuccessCheckbox(this)"></span>I can save and organise my digital work in my Poetry folder on Google Drive</li>
+                    </ul>
+                </div>
+                
+                <button class="interactive-button pulse" onclick="showSlide(1)">
+                    Let's Begin Creating! →
+                </button>
+
+                <div class="teacher-notes">
+                    <div class="editable-text" contenteditable="true">
+                        Add your preparation notes here - check iPad charges, WiFi connectivity, Google Drive access...
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2: Warm Up -->
+            <section id="slide-1" class="slide">
+                <div class="slide-timer" data-duration="300">
+                    <span class="timer-text">⏱️ 5:00</span>
+                    <button onclick="startSlideTimer(this, 300)">▶️</button>
+                    <button onclick="resetSlideTimer(this, 300)">🔄</button>
+                </div>
+                
+                <h2>Warm Up: Font Feelings Speed Match</h2>
+                
+                <div class="activity-box">
+                    <h3>Poetry Font Speed Dating!</h3>
+                    <p>In pairs, you have 3 minutes to explore how fonts create feelings:</p>
+                    
+                    <ol class="step-list">
+                        <li>Open a new Google Doc on your iPad</li>
+                        <li>Type one emotion word (happy, sad, scary, calm)</li>
+                        <li>Highlight it and tap the font menu - try 3 different fonts</li>
+                        <li>Quick share with your partner: "I chose [font] because..."</li>
+                    </ol>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); border-radius: 15px; padding: 20px; margin: 20px 0; text-align: center;">
+                    <h3 style="color: #856404; margin-top: 0;">🤔 Key Question</h3>
+                    <p style="font-size: 1.2em; font-weight: 500; color: #6c5ce7;">How can the WAY words look change the way they FEEL?</p>
+                </div>
+
+                <aside class="teacher-tip">
+                    <strong>Teacher tip:</strong> Circulate quickly and highlight good font choices. Use <a href="#" class="inline-resource material" onclick="downloadResource('font_emotion_examples.html')">font emotion examples</a> on the board if students need inspiration.
+                </aside>
+
+                <div class="teacher-notes">
+                    <div class="editable-text" contenteditable="true">
+                        Note pairs that work well together, students who need tech support...
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 3: Launch - Digital Toolkit -->
+            <section id="slide-2" class="slide">
+                <div class="slide-timer" data-duration="480">
+                    <span class="timer-text">⏱️ 8:00</span>
+                    <button onclick="startSlideTimer(this, 480)">▶️</button>
+                    <button onclick="resetSlideTimer(this, 480)">🔄</button>
+                </div>
+                
+                <h2>Launch: The Digital Poet's Toolkit (I Do)</h2>
+                
+                <div class="activity-box">
+                    <h3>Watch me transform a poem from ordinary to extraordinary on my iPad!</h3>
+                    <p>I'll demonstrate with our class colour poem about "Grey":</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 25px 0;">
+                    <div style="background: #e3f2fd; border: 2px solid #2196f3; border-radius: 12px; padding: 20px;">
+                        <h4 style="color: #1976d2; margin-top: 0;">📝 Step 1: Type with Purpose</h4>
+                        <ul>
+                            <li>Watch how I tap 'return' once for line breaks within stanzas</li>
+                            <li>Double tap 'return' creates space between stanzas</li>
+                            <li>Title goes at top, name at bottom</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: #f3e5f5; border: 2px solid #9c27b0; border-radius: 12px; padding: 20px;">
+                        <h4 style="color: #7b1fa2; margin-top: 0;">🎨 Step 2: Font as Mood-Maker</h4>
+                        <p style="font-style: italic;">"My grey poem feels quiet and a bit lonely, like fog... Let me highlight the text and explore fonts. Comic Sans is too playful! This 'Merriweather' font feels more serious and matches my mood better."</p>
+                    </div>
+
+                    <div style="background: #e8f5e8; border: 2px solid #4caf50; border-radius: 12px; padding: 20px;">
+                        <h4 style="color: #388e3c; margin-top: 0;">🎨 Step 3: Colour with Care</h4>
+                        <p style="font-style: italic;">"I'll highlight my text, tap the 'A' with the coloured line underneath. Black feels too harsh - let me try this dark grey. See how it softens the feeling?"</p>
+                    </div>
+
+                    <div style="background: #fff3e0; border: 2px solid #ff9800; border-radius: 12px; padding: 20px;">
+                        <h4 style="color: #f57c00; margin-top: 0;">📸 Step 4: The Perfect Picture</h4>
+                        <p style="font-style: italic;">"Tap Insert → Image → Search the web. I could search 'grey paint' but that's boring! My poem mentions 'morning mist' so I'll search for 'foggy path' - this image captures the lonely feeling perfectly."</p>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); border-radius: 15px; padding: 20px; margin: 20px 0; text-align: center;">
+                    <h3 style="color: #c62828; margin-top: 0;">🎯 Remember</h3>
+                    <p style="font-size: 1.2em; font-weight: 500; color: #d32f2f;">Every choice should support your poem's message!</p>
+                </div>
+
+                <div class="teacher-notes">
+                    <div class="editable-text" contenteditable="true">
+                        Have your grey poem ready, practice the demonstration, note any iPad issues...
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4: Design Rules -->
+            <section id="slide-3" class="slide">
+                <div class="slide-timer" data-duration="120">
+                    <span class="timer-text">⏱️ 2:00</span>
+                    <button onclick="startSlideTimer(this, 120)">▶️</button>
+                    <button onclick="resetSlideTimer(this, 120)">🔄</button>
+                </div>
+                
+                <h2>Launch: Digital Design Rules (We Do)</h2>
+                
+                <div class="activity-box">
+                    <h3>Let's create our Digital Poetry Golden Rules together!</h3>
+                    <p>Look at these two Google Docs - which is easier to read and why?</p>
+                </div>
+
+                <div class="digital-design-charter">
+                    <h3>Our Class Design Charter</h3>
+                    <ul class="charter-rules">
+                        <li>Maximum 2 fonts (title + body)</li>
+                        <li>Maximum 3 colours (including black)</li>
+                        <li>White space is your friend - poems need room to breathe!</li>
+                        <li>One meaningful image only - it supports, not steals the show</li>
+                    </ul>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%); border-radius: 15px; padding: 25px; margin: 25px 0; text-align: center;">
+                    <h3 style="color: #2e7d32; margin-top: 0;">✨ Design Principle</h3>
+                    <p style="font-size: 1.1em; font-weight: 500; color: #388e3c;">Less is more - clean design lets your poetry shine!</p>
+                </div>
+
+                <div class="teacher-notes">
+                    <div class="editable-text" contenteditable="true">
+                        Show the before/after examples, get student agreement on rules...
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: Explore -->
+            <section id="slide-4" class="slide">
+                <div class="slide-timer" data-duration="900">
+                    <span class="timer-text">⏱️ 15:00</span>
+                    <button onclick="startSlideTimer(this, 900)">▶️</button>
+                    <button onclick="resetSlideTimer(this, 900)">🔄</button>
+                </div>
+                
+                <h2>Explore: Create Your Digital Masterpiece (You Do)</h2>
+                
+                <div class="activity-box">
+                    <h3>Your Mission: Bring one poem to digital life!</h3>
+                    
+                    <ol class="step-list">
+                        <li>Open Google Docs on your iPad</li>
+                        <li>Choose your favourite poem from your anthology (acrostic, cinquain, or colour poem)</li>
+                        <li>Type it carefully - think about where lines break for meaning</li>
+                        <li>Format with purpose: Highlight text → tap font menu → choose one that matches your poem's personality</li>
+                        <li>Tap the 'A' button → pick colours that enhance (not distract)</li>
+                        <li>Tap Insert → Image → Search the web → add ONE image that deepens meaning</li>
+                        <li>Your doc auto-saves, but rename it: Tap the title → "PoemTitle_YourName"</li>
+                    </ol>
+                </div>
+
+                <div class="support-section">
+                    <h4>🤝 Support Station - Poetry Apprentice</h4>
+                    <ul>
+                        <li>Open the shared <a href="#" class="inline-resource material" onclick="downloadResource('poetry_template.html')">"Poetry Template"</a> in our class Google Drive folder</li>
+                        <li>Follow the <a href="#" class="inline-resource download" onclick="downloadResource('enabler_checklist.html')">checklist</a> on your table</li>
+                        <li>Focus on just font and spacing first - add image if time allows</li>
+                        <li>Tap the hand icon if you need tech help</li>
+                    </ul>
+                </div>
+
+                <div class="challenge-section">
+                    <h4>🚀 Challenge Corner - Poetry Design Pro</h4>
+                    <ul>
+                        <li>Try Format → Paragraph styles for fancy title effects</li>
+                        <li>Explore Insert → Drawing to create word art</li>
+                        <li>Add a text box with a poet's note about your inspiration</li>
+                        <li>Use Insert → Table (1x1) to create a decorative border</li>
+                    </ul>
+                </div>
+
+                <div class="ipad-tips">
+                    <h4>iPad Quick Tips</h4>
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <strong>Font Guide:</strong> Serif fonts (like Times) feel formal, Sans-serif (like Arial) feel modern
+                        </div>
+                        <div class="tip-card">
+                            <strong>Touch Gestures:</strong> Two-finger tap = undo, Pinch to zoom for detailed work
+                        </div>
+                        <div class="tip-card">
+                            <strong>Image Search:</strong> Use descriptive keywords that match your poem's mood
+                        </div>
+                    </div>
+                </div>
+
+                <div class="resources-grid">
+                    <div class="resource-item downloadable" onclick="downloadResource('enabler_checklist.html')">
+                        📄 Enabler Checklist
+                    </div>
+                    <div class="resource-item downloadable" onclick="downloadResource('extender_challenges.html')">
+                        📄 Challenge Extensions
+                    </div>
+                    <div class="resource-item downloadable" onclick="downloadResource('font_emotion_guide.html')">
+                        🎨 Font Emotion Guide
+                    </div>
+                    <div class="resource-item downloadable" onclick="downloadResource('image_search_keywords.html')">
+                        🔍 Image Search Tips
+                    </div>
+                </div>
+
+                <div class="teacher-notes">
+                    <div class="editable-text" contenteditable="true">
+                        Circulate and note: students needing tech help, good examples to share, time management...
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6: Poetry Vault -->
+            <section id="slide-5" class="slide">
+                <div class="slide-timer" data-duration="300">
+                    <span class="timer-text">⏱️ 5:00</span>
+                    <button onclick="startSlideTimer(this, 300)">▶️</button>
+                    <button onclick="resetSlideTimer(this, 300)">🔄</button>
+                </div>
+                
+                <h2>Poetry Vault Creation (I Do/You Do)</h2>
+                
+                <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); border-radius: 15px; padding: 25px; margin: 25px 0; text-align: center;">
+                    <h3 style="color: #ef6c00; margin-top: 0;">💎 Protect your digital treasures in Google Drive!</h3>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 25px 0;">
+                    <div style="background: #e3f2fd; border: 2px solid #2196f3; border-radius: 12px; padding: 20px;">
+                        <h4 style="color: #1976d2; margin-top: 0;">👨‍🏫 I Do (2 minutes)</h4>
+                        <p>Watch on the big screen as I organise:</p>
+                        <ol>
+                            <li>Open Google Drive app</li>
+                            <li>Tap + button → New Folder → "MsSmith Poetry Vault 2025"</li>
+                            <li>Open that folder → Create two subfolders: "Drafts" and "Published"</li>
+                            <li>My poem is already saved! I just need to move it</li>
+                        </ol>
+                    </div>
+
+                    <div style="background: #e8f5e8; border: 2px solid #4caf50; border-radius: 12px; padding: 20px;">
+                        <h4 style="color: #388e3c; margin-top: 0;">👥 You Do (3 minutes)</h4>
+                        <p>Create your Poetry Vault now!</p>
+                        <ul>
+                            <li>In Google Drive: + → New Folder → "YourName Poetry Vault 2025"</li>
+                            <li>Make two subfolders inside</li>
+                            <li>Move today's poem to "Published"</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-radius: 15px; padding: 20px; margin: 20px 0; text-align: center;">
+                    <p style="font-size: 1.1em; font-weight: 500; color: #7b1fa2; margin: 0;">Quick check: Show your partner your organised Google Drive vault!</p>
+                </div>
+
+                <div class="teacher-notes">
+                    <div class="editable-text" contenteditable="true">
+                        Check students are creating folders correctly, help with file organisation...
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: Review -->
+            <section id="slide-6" class="slide">
+                <div class="slide-timer" data-duration="180">
+                    <span class="timer-text">⏱️ 3:00</span>
+                    <button onclick="startSlideTimer(this, 180)">▶️</button>
+                    <button onclick="resetSlideTimer(this, 180)">🔄</button>
+                </div>
+                
+                <h2>Review: Digital Gallery & Reflection</h2>
+                
+                <div class="activity-box">
+                    <h3>Lightning Gallery Walk</h3>
+                    <p>When your poem is in your Published folder, close your iPad cover halfway (tent position). I'll tap 2-3 poets to AirPlay their work on the big screen.</p>
+                </div>
+
+                <div class="gallery-preview">
+                    <div class="poem-card">
+                        <h4>Student Example</h4>
+                        <p style="font-style: italic; color: #666;">
+                            "Blue whispers like morning rain,<br>
+                            Tastes of forgotten dreams..."
+                        </p>
+                        <div class="sticky-note">⭐ Great font choice matches the calm mood!</div>
+                    </div>
+                </div>
+
+                <div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 12px; padding: 20px; margin: 20px 0;">
+                    <h4 style="color: #856404; margin-top: 0;">🤔 As we view, consider:</h4>
+                    <ul>
+                        <li>What formatting choice really makes this poem pop?</li>
+                        <li>How does the image add to the poem's message?</li>
+                    </ul>
+                </div>
+
+                <div class="exit-question">
+                    <h4>Exit Reflection - Think, Pair, Share</h4>
+                    <p>"Digital poetry creation helps me because..."</p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%); border-radius: 15px; padding: 20px; margin: 20px 0; text-align: center;">
+                    <h4 style="color: #2e7d32; margin-top: 0;">🔮 Sneak Peek</h4>
+                    <p style="font-size: 1.1em; font-weight: 500; color: #388e3c; margin: 0;">Next session - Record yourself reading your digital poems with sound effects!</p>
+                </div>
+
+                <div class="teacher-notes">
+                    <div class="editable-text" contenteditable="true">
+                        Note which poems to highlight, prepare AirPlay, gather reflection responses...
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8: Teacher Resources -->
+            <section id="slide-7" class="slide">
+                <h2>Teacher Resources & Planning</h2>
+                
+                <div class="checklist-grid">
+                    <div>
+                        <h3>5-Minute Setup Checklist:</h3>
+                        <div class="checklist-item">Poetry Template shared in class Google Drive folder</div>
+                        <div class="checklist-item">Check all iPads are charged and connected to WiFi</div>
+                        <div class="checklist-item">Ensure safe search is on for image searches</div>
+                        <div class="checklist-item">Example poem ready in your Google Drive</div>
+                        <div class="checklist-item">AirPlay/screen mirroring ready</div>
+                    </div>
+                    
+                    <div>
+                        <h3>Quick Assessment Guide:</h3>
+                        <div class="checklist-item">Poem typed with intentional formatting</div>
+                        <div class="checklist-item">Font/colour choices match poem mood</div>
+                        <div class="checklist-item">Visual element enhances meaning</div>
+                        <div class="checklist-item">File renamed appropriately</div>
+                        <div class="checklist-item">Google Drive organisation complete</div>
+                    </div>
+                </div>
+
+                <div class="timing-guide">
+                    <h3>Session Timeline:</h3>
+                    <table class="timing-table">
+                        <tr><td>Font Feelings Warm Up</td><td>5 mins</td></tr>
+                        <tr><td>Digital Toolkit (I Do)</td><td>8 mins</td></tr>
+                        <tr><td>Design Rules (We Do)</td><td>2 mins</td></tr>
+                        <tr><td>Create Masterpiece (You Do)</td><td>15 mins</td></tr>
+                        <tr><td>Poetry Vault Creation</td><td>5 mins</td></tr>
+                        <tr><td>Digital Gallery & Review</td><td>3 mins</td></tr>
+                        <tr class="total"><td><strong>Total</strong></td><td><strong>38 mins</strong></td></tr>
+                    </table>
+                </div>
+
+                <div class="ipad-tips">
+                    <h4>iPad/Google Docs Shortcuts</h4>
+                    <div class="tips-grid">
+                        <div class="tip-card">
+                            <strong>Line Breaks:</strong> Single return = line break (same stanza), Double return = new stanza
+                        </div>
+                        <div class="tip-card">
+                            <strong>Undo:</strong> Two-finger tap = undo, Pinch to zoom for detailed work
+                        </div>
+                        <div class="tip-card">
+                            <strong>Formatting:</strong> Select text → Format menu appears automatically
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #f8d7da; border-left: 5px solid #dc3545; padding: 20px; margin: 30px 0; border-radius: 5px;">
+                    <h4 style="color: #721c24; margin-top: 0;">🛠️ Troubleshooting Tips</h4>
+                    <ul>
+                        <li><strong>Font menu not showing:</strong> Check text is highlighted</li>
+                        <li><strong>Image won't move:</strong> Tap image → three dots → "Wrap text"</li>
+                        <li><strong>Can't find document:</strong> It's auto-saved in Drive under "Recent"</li>
+                        <li><strong>Insert menu missing:</strong> Make sure they're in edit mode (pencil icon)</li>
+                    </ul>
+                </div>
+
+                <div class="teacher-notes">
+                    <h4>Session Notes & Reflections:</h4>
+                    <div class="editable-text" contenteditable="true">
+                        Add your post-lesson notes: what worked well, what to adjust next time, student achievements...
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <div id="timer">
+        <span id="timer-display">40:00</span>
+        <button onclick="startTimer()" style="background: none; border: none; color: inherit; margin-left: 10px; cursor: pointer;">▶️</button>
+        <button onclick="resetTimer()" style="background: none; border: none; color: inherit; margin-left: 5px; cursor: pointer;">🔄</button>
+    </div>
+    
+    <div class="present-controls">
+        <button onclick="toggleFullscreen()" title="Toggle Fullscreen (F)">⛶</button>
+        <button onclick="showSlide(currentSlide - 1)" title="Previous (←)">‹</button>
+        <button onclick="showSlide(currentSlide + 1)" title="Next (→)">›</button>
+    </div>
+    
+    <script>
+        // Global state (no localStorage!)
+        let currentSlide = 0;
+        let timerSeconds = 2400; // 40 minutes
+        let timerInterval = null;
+        let slideTimers = new Map();
+        let visitedSlides = new Set();
+
+        // Slide Navigation
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.slide');
+            const buttons = document.querySelectorAll('.nav-button');
+            
+            if (currentSlide >= 0) {
+                visitedSlides.add(currentSlide);
+            }
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            buttons.forEach((btn, i) => {
+                btn.classList.remove('active');
+                if (visitedSlides.has(i)) {
+                    btn.classList.add('visited');
+                }
+            });
+            
+            if (slides[index]) {
+                slides[index].classList.add('active');
+                buttons[index]?.classList.add('active');
+                currentSlide = index;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            const totalSlides = document.querySelectorAll('.slide').length;
+            
+            switch(e.key) {
+                case 'ArrowRight':
+                    if (currentSlide < totalSlides - 1) {
+                        showSlide(currentSlide + 1);
+                    }
+                    break;
+                case 'ArrowLeft':
+                    if (currentSlide > 0) {
+                        showSlide(currentSlide - 1);
+                    }
+                    break;
+                case 'f':
+                    toggleFullscreen();
+                    break;
+            }
+        });
+
+        // Timer Functionality
+        function startTimer() {
+            if (timerInterval) {
+                pauseTimer();
+                return;
+            }
+            
+            timerInterval = setInterval(() => {
+                timerSeconds--;
+                updateTimerDisplay();
+                
+                if (timerSeconds <= 300) {
+                    document.getElementById('timer').classList.add('warning');
+                }
+                
+                if (timerSeconds <= 0) {
+                    pauseTimer();
+                    alert('Time\'s up! Great work everyone!');
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timerSeconds = 2400;
+            document.getElementById('timer').classList.remove('warning');
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('timer-display').textContent = display;
+        }
+
+        // Individual Slide Timer Functions
+        function startSlideTimer(button, duration) {
+            const timerElement = button.parentElement;
+            const timerText = timerElement.querySelector('.timer-text');
+            const timerId = timerElement.dataset.duration;
+            
+            if (slideTimers.has(timerId)) {
+                clearInterval(slideTimers.get(timerId).interval);
+            }
+            
+            let remainingSeconds = duration;
+            timerElement.classList.add('active');
+            
+            const interval = setInterval(() => {
+                remainingSeconds--;
+                const minutes = Math.floor(remainingSeconds / 60);
+                const seconds = remainingSeconds % 60;
+                timerText.textContent = `⏱️ ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (remainingSeconds <= 60) {
+                    timerElement.classList.add('warning');
+                }
+                
+                if (remainingSeconds <= 0) {
+                    clearInterval(interval);
+                    timerElement.classList.remove('active', 'warning');
+                    slideTimers.delete(timerId);
+                    
+                    timerText.textContent = '⏰ Time up!';
+                    setTimeout(() => {
+                        resetSlideTimer(button, duration);
+                    }, 3000);
+                }
+            }, 1000);
+            
+            slideTimers.set(timerId, { interval, duration });
+        }
+
+        function resetSlideTimer(button, duration) {
+            const timerElement = button.parentElement;
+            const timerText = timerElement.querySelector('.timer-text');
+            const timerId = timerElement.dataset.duration;
+            
+            if (slideTimers.has(timerId)) {
+                clearInterval(slideTimers.get(timerId).interval);
+                slideTimers.delete(timerId);
+            }
+            
+            const minutes = Math.floor(duration / 60);
+            const seconds = duration % 60;
+            timerText.textContent = `⏱️ ${minutes}:${seconds.toString().padStart(2, '0')}`;
+            timerElement.classList.remove('active', 'warning');
+        }
+
+        // Fullscreen Functionality
+        function toggleFullscreen() {
+            if (!document.fullscreenElement && 
+                !document.mozFullScreenElement && 
+                !document.webkitFullscreenElement && 
+                !document.msFullscreenElement) {
+                
+                const element = document.documentElement;
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.mozRequestFullScreen) {
+                    element.mozRequestFullScreen();
+                } else if (element.webkitRequestFullscreen) {
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) {
+                    element.msRequestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        // Educational Enhancement Functions
+        function toggleSuccessCheckbox(checkbox) {
+            checkbox.classList.toggle('checked');
+        }
+
+        // Resource Download Functions
+        function downloadResource(filename) {
+            let content = '';
+            let mimeType = 'text/html';
+            
+            switch(filename) {
+                case 'enabler_checklist.html':
+                    content = generateEnablerChecklistHTML();
+                    break;
+                case 'extender_challenges.html':
+                    content = generateExtenderChallengesHTML();
+                    break;
+                case 'font_emotion_guide.html':
+                    content = generateFontEmotionGuideHTML();
+                    break;
+                case 'image_search_keywords.html':
+                    content = generateImageSearchKeywordsHTML();
+                    break;
+                case 'poetry_template.html':
+                    content = generatePoetryTemplateHTML();
+                    break;
+                case 'font_emotion_examples.html':
+                    content = generateFontEmotionExamplesHTML();
+                    break;
+            }
+            
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Resource Generation Functions
+        function generateEnablerChecklistHTML() {
+            return `<!DOCTYPE html>
+<html lang="en-AU"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Digital Poetry Checklist</title><style>body{font-family:'Arial',sans-serif;margin:0;padding:20px;background:#f5f5f5}.header{text-align:center;background:#e3f2fd;padding:20px;border-radius:10px;margin-bottom:30px}.header h1{color:#1976d2;margin:0;font-size:2em}.checklist{background:white;border-radius:12px;padding:25px;box-shadow:0 4px 12px rgba(0,0,0,0.1)}.checklist-item{display:flex;align-items:center;padding:15px;margin:10px 0;background:#f8f9fa;border-radius:8px;border-left:4px solid #28a745}.checklist-item::before{content:'□';margin-right:15px;font-size:1.5em;color:#28a745}@media print{body{background:white}}</style></head><body><div class="header"><h1>📝 Digital Poetry Checklist</h1><p>Step-by-step guide for creating your digital poem</p></div><div class="checklist"><div class="checklist-item">Open Google Docs on your iPad</div><div class="checklist-item">Choose your best poem from your anthology</div><div class="checklist-item">Type your poem with careful line breaks</div><div class="checklist-item">Choose ONE font that matches your poem's mood</div><div class="checklist-item">Pick colours that enhance your message</div><div class="checklist-item">Add ONE meaningful image</div><div class="checklist-item">Rename your document: "PoemTitle_YourName"</div><div class="checklist-item">Save to your Poetry Vault folder</div></div></body></html>`;
+        }
+
+        function generateExtenderChallengesHTML() {
+            return `<!DOCTYPE html>
+<html lang="en-AU"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Poetry Design Pro Challenges</title><style>body{font-family:'Arial',sans-serif;margin:0;padding:20px;background:#f5f5f5}.header{text-align:center;background:#fff3e0;padding:20px;border-radius:10px;margin-bottom:30px}.header h1{color:#f57c00;margin:0;font-size:2em}.challenge-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}.challenge-card{background:white;border:3px solid #ff9800;border-radius:12px;padding:20px}.challenge-card h3{color:#f57c00;margin-top:0}.challenge-item{background:#fff3e0;margin:8px 0;padding:15px;border-radius:6px;border-left:4px solid #ff9800}@media print{body{background:white}}</style></head><body><div class="header"><h1>🚀 Poetry Design Pro Challenges</h1><p>Advanced techniques for digital poetry masters</p></div><div class="challenge-grid"><div class="challenge-card"><h3>Advanced Formatting</h3><div class="challenge-item">Try Format → Paragraph styles for fancy title effects</div><div class="challenge-item">Use different fonts for title vs poem body</div><div class="challenge-item">Experiment with text alignment (centre, left, right)</div></div><div class="challenge-card"><h3>Creative Elements</h3><div class="challenge-item">Explore Insert → Drawing to create word art</div><div class="challenge-item">Add a text box with your inspiration notes</div><div class="challenge-item">Use Insert → Table (1x1) to create decorative borders</div></div><div class="challenge-card"><h3>Publishing Pro</h3><div class="challenge-item">Create a cover page for your poem collection</div><div class="challenge-item">Add page numbers and headers</div><div class="challenge-item">Design a poet's biography page</div></div></div></body></html>`;
+        }
+
+        function generateFontEmotionGuideHTML() {
+            return `<!DOCTYPE html>
+<html lang="en-AU"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Font Emotion Guide</title><style>body{font-family:'Arial',sans-serif;margin:0;padding:20px;background:#f5f5f5}.header{text-align:center;background:linear-gradient(135deg,#a8edea 0%,#fed6e3 100%);padding:20px;border-radius:10px;margin-bottom:30px}.header h1{color:#333;margin:0;font-size:2em}.font-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}.font-card{background:white;border-radius:12px;padding:25px;box-shadow:0 4px 12px rgba(0,0,0,0.1);text-align:center}.font-example{font-size:2em;margin:15px 0;padding:10px;border-radius:8px}.serif{font-family:'Times New Roman',serif;background:#f8f9fa;color:#495057}.sans-serif{font-family:'Arial',sans-serif;background:#e3f2fd;color:#1976d2}.script{font-family:'Brush Script MT',cursive;background:#f3e5f5;color:#7b1fa2}.display{font-family:'Impact',sans-serif;background:#ffebee;color:#c62828}@media print{body{background:white}}</style></head><body><div class="header"><h1>🎨 Font Emotion Guide</h1><p>How different fonts create different feelings</p></div><div class="font-grid"><div class="font-card"><h3>Serif Fonts</h3><div class="font-example serif">Wisdom</div><p><strong>Feeling:</strong> Traditional, formal, trustworthy<br><strong>Good for:</strong> Serious poems, nature themes</p></div><div class="font-card"><h3>Sans-Serif Fonts</h3><div class="font-example sans-serif">Modern</div><p><strong>Feeling:</strong> Clean, modern, friendly<br><strong>Good for:</strong> Happy poems, future themes</p></div><div class="font-card"><h3>Script Fonts</h3><div class="font-example script">Elegant</div><p><strong>Feeling:</strong> Personal, decorative, fancy<br><strong>Good for:</strong> Love poems, special occasions</p></div><div class="font-card"><h3>Display Fonts</h3><div class="font-example display">POWER</div><p><strong>Feeling:</strong> Strong, bold, attention-grabbing<br><strong>Good for:</strong> Action poems, emotions</p></div></div></body></html>`;
+        }
+
+        function generateImageSearchKeywordsHTML() {
+            return `<!DOCTYPE html>
+<html lang="en-AU"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Image Search Keywords</title><style>body{font-family:'Arial',sans-serif;margin:0;padding:20px;background:#f5f5f5}.header{text-align:center;background:linear-gradient(135deg,#ffecd2 0%,#fcb69f 100%);padding:20px;border-radius:10px;margin-bottom:30px}.header h1{color:#d84315;margin:0;font-size:2em}.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}.tip-section{background:white;border-radius:12px;padding:20px;border-left:5px solid #ff6b6b}.tip-section h3{color:#d32f2f;margin-top:0}.keyword-list{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0}.keyword{background:#ffebee;color:#c62828;padding:5px 12px;border-radius:15px;font-size:0.9em;border:1px solid #ffcdd2}.avoid{background:#fff3e0;color:#ef6c00;border-color:#ffe0b2}@media print{body{background:white}}</style></head><body><div class="header"><h1>🔍 Image Search Keywords</h1><p>Find the perfect image to match your poem's mood</p></div><div class="tips-grid"><div class="tip-section"><h3>✅ Good Keywords</h3><p>Use descriptive words that match your poem's feeling:</p><div class="keyword-list"><span class="keyword">misty morning</span><span class="keyword">golden sunset</span><span class="keyword">peaceful lake</span><span class="keyword">stormy clouds</span><span class="keyword">autumn leaves</span><span class="keyword">ocean waves</span></div></div><div class="tip-section"><h3>❌ Avoid These</h3><p>Too simple or common - won't match your unique poem:</p><div class="keyword-list"><span class="keyword avoid">blue</span><span class="keyword avoid">red paint</span><span class="keyword avoid">sad face</span><span class="keyword avoid">happy</span><span class="keyword avoid">colour</span><span class="keyword avoid">rainbow</span></div></div><div class="tip-section"><h3>🎯 Pro Tips</h3><ul><li>Combine colour with feeling: "gentle blue morning"</li><li>Add texture words: "rough grey stone"</li><li>Include nature: "silver moonlight on water"</li><li>Think about time: "dawn breaking through fog"</li></ul></div><div class="tip-section"><h3>🚫 Safety Reminder</h3><ul><li>Only search appropriate, school-safe images</li><li>Choose images that enhance your poem</li><li>If unsure, ask your teacher first</li><li>One image per poem is enough</li></ul></div></div></body></html>`;
+        }
+
+        function generatePoetryTemplateHTML() {
+            return `<!DOCTYPE html>
+<html lang="en-AU"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Poetry Template</title><style>body{font-family:'Arial',sans-serif;margin:40px;padding:20px;background:white;border:2px dashed #ccc}.template-header{text-align:center;margin-bottom:40px}.poem-title{font-size:2em;font-weight:bold;margin-bottom:10px;border-bottom:2px solid #ddd;padding-bottom:10px}.poem-body{font-size:1.2em;line-height:2;margin:40px 0;min-height:300px}.author-name{text-align:right;margin-top:40px;font-style:italic}.instructions{background:#f0f8ff;border:1px solid #b3d9ff;padding:15px;margin:20px 0;border-radius:8px;font-size:0.9em}@media print{body{border:none;background:white}}</style></head><body><div class="template-header"><h1>My Digital Poetry Template</h1><p>Use this template to format your poem beautifully</p></div><div class="instructions">📝 <strong>Instructions:</strong><br>1. Replace "My Poem Title" with your actual poem title<br>2. Type your poem in the space below, pressing Enter once for line breaks<br>3. Replace "Your Name" with your actual name<br>4. Format your text using the font and colour tools<br>5. Add one meaningful image that enhances your poem</div><div class="poem-title">[Your Poem Title Here]</div><div class="poem-body">[Type your poem here]<br><br>[Remember to think about line breaks]<br>[And spacing between stanzas]<br><br>[Each line should have meaning]<br>[And contribute to your overall message]</div><div class="author-name">by [Your Name]</div><div class="instructions">🎨 <strong>Formatting Tips:</strong><br>• Choose fonts that match your poem's mood<br>• Use colours that enhance, not distract<br>• Leave white space - poems need room to breathe<br>• Add ONE image that deepens your poem's meaning</div></body></html>`;
+        }
+
+        function generateFontEmotionExamplesHTML() {
+            return `<!DOCTYPE html>
+<html lang="en-AU"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Font Emotion Examples</title><style>body{font-family:'Arial',sans-serif;margin:0;padding:20px;background:#f5f5f5}.header{text-align:center;background:#e8f5e8;padding:20px;border-radius:10px;margin-bottom:30px}.header h1{color:#2e7d32;margin:0;font-size:2em}.examples-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px}.example-card{background:white;border-radius:12px;padding:25px;box-shadow:0 4px 12px rgba(0,0,0,0.1);text-align:center}.emotion-word{font-size:3em;margin:20px 0;padding:15px;border-radius:12px}.angry{font-family:'Impact',sans-serif;color:#d32f2f;background:#ffebee;transform:skew(-5deg);letter-spacing:3px}.peaceful{font-family:'Georgia',serif;color:#388e3c;background:#e8f5e8;font-style:italic}.excited{font-family:'Comic Sans MS',cursive;color:#f57c00;background:#fff3e0;animation:bounce 1s infinite}.mysterious{font-family:'Times New Roman',serif;color:#7b1fa2;background:#f3e5f5;text-shadow:2px 2px 4px rgba(0,0,0,0.3)}@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}</style></head><body><div class="header"><h1>🎭 Font Emotion Examples</h1><p>See how fonts create different feelings</p></div><div class="examples-grid"><div class="example-card"><div class="emotion-word angry">ANGRY</div><p><strong>Font:</strong> Impact (Bold, Sans-serif)<br><strong>Why it works:</strong> Sharp, aggressive lines create tension</p></div><div class="example-card"><div class="emotion-word peaceful">peaceful</div><p><strong>Font:</strong> Georgia (Serif, Italic)<br><strong>Why it works:</strong> Flowing curves feel calm and gentle</p></div><div class="example-card"><div class="emotion-word excited">EXCITED!</div><p><strong>Font:</strong> Comic Sans (Playful)<br><strong>Why it works:</strong> Bouncy, friendly letters show energy</p></div><div class="example-card"><div class="emotion-word mysterious">mysterious</div><p><strong>Font:</strong> Times New Roman (Formal)<br><strong>Why it works:</strong> Traditional font with shadow creates intrigue</p></div></div></body></html>`;
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            showSlide(0);
+            updateTimerDisplay();
+        });
+    </script>
+</body>
+</html>
+
+<!-- 
+Lesson: Digital Poetry Creation - Transform Your Words into Digital Art!
+Duration: 38 minutes (38 mins scheduled, 2 mins buffer)
+Year Level: Years 3-6
+Curriculum: Creative Writing, Digital Literacy, Design & Technology
+HITS: Setting Goals, Explicit Teaching, Worked Examples, Differentiated Teaching, Feedback
+VTLM: Planning, Attention & Focus, Knowledge & Memory, Explicit Teaching, Supported Application
+Generated: 2025-07-23
+-->
