@@ -1,0 +1,2044 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 6: Acrostic Poems - From Word Lists to Word Art</title>
+    <style>
+        /* Core CSS Framework */
+        :root {
+            /* Base colours for educational contexts */
+            --gradient-main: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-header: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-activity: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            --gradient-support: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            
+            /* Semantic colours */
+            --color-enabler: #e3f2fd;
+            --color-enabler-border: #2196f3;
+            --color-extender: #fff3e0;
+            --color-extender-border: #ff9800;
+            --color-success: #28a745;
+            --color-warning: #ffc107;
+            
+            /* Typography */
+            --font-stack: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        /* Container and Layout */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-stack);
+            line-height: 1.6;
+            color: #222;
+            background: var(--gradient-main);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        /* Header with Animation - Reduced Height */
+        .header {
+            background: var(--gradient-header);
+            color: white;
+            padding: 20px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.1) 10px,
+                rgba(255,255,255,0.1) 20px
+            );
+            animation: slide 20s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            gap: 10px;
+            flex-wrap: wrap;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .nav-button {
+            padding: 12px 24px;
+            border: none;
+            background: #6c757d;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: #5a6268;
+        }
+
+        .nav-button.active {
+            background: #007bff;
+            box-shadow: 0 0 15px rgba(0,123,255,0.3);
+        }
+
+        .nav-button.visited {
+            background: #28a745;
+        }
+
+        /* Slide System */
+        .slide {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        /* Visual Description Blocks - REMOVED */
+        .visual-description {
+            display: none;
+        }
+
+        /* Learning Boxes */
+        .learning-box {
+            background: #f8f9fa;
+            border-left: 5px solid #007bff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .learning-box:hover {
+            box-shadow: 0 4px 12px rgba(0,123,255,0.1);
+            transform: translateX(5px);
+        }
+
+        .learning-box h3 {
+            margin-top: 0;
+            color: #007bff;
+        }
+
+        .learning-intent {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .success-criteria {
+            list-style: none;
+            padding: 0;
+        }
+
+        .success-criteria li {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Success Checkboxes */
+        .success-checkbox {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #28a745;
+            border-radius: 4px;
+            margin-right: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            vertical-align: middle;
+        }
+
+        .success-checkbox:hover {
+            background: #e8f5e8;
+            transform: scale(1.1);
+            box-shadow: 0 2px 6px rgba(40,167,69,0.2);
+        }
+
+        .success-checkbox.checked {
+            background: #28a745;
+        }
+
+        .success-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            top: -2px;
+            left: 3px;
+            font-weight: bold;
+        }
+
+        /* Activity Boxes */
+        .activity-box {
+            background: var(--gradient-activity);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .activity-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+
+        .activity-box h3 {
+            margin-top: 0;
+            color: #d84315;
+        }
+
+        /* Step Lists */
+        .step-list {
+            counter-reset: step-counter;
+            padding-left: 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            position: relative;
+            padding-left: 40px;
+            margin: 20px 0;
+            list-style: none;
+            line-height: 2;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #ff6b6b;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .step-list li:hover::before {
+            transform: scale(1.1);
+            box-shadow: 0 2px 8px rgba(255,107,107,0.4);
+        }
+
+        /* Slide Timer */
+        .slide-timer {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #343a40;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            z-index: 100;
+        }
+
+        .slide-timer.active {
+            background: var(--color-success);
+            animation: pulse 1s infinite;
+        }
+
+        .slide-timer.warning {
+            background: var(--color-warning);
+            color: #212529;
+        }
+
+        .slide-timer button {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            margin-left: 8px;
+            font-size: 1.1em;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Interactive Examples */
+        .example-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+        
+        .example-box:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-1px);
+        }
+
+        .example-box.negative {
+            background: #ffebee;
+            border-color: #f44336;
+        }
+
+        .example-box h4 {
+            margin-top: 0;
+        }
+
+        /* Poem Display */
+        .poem-display {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .poem-display:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transform: translateY(-1px);
+        }
+
+        .poem-line {
+            margin: 8px 0;
+            padding: 5px 0;
+        }
+
+        .poem-line strong {
+            color: #007bff;
+            font-size: 1.2em;
+        }
+
+        /* Vocabulary Vault */
+        .vocabulary-vault {
+            background: #e3f2fd;
+            border: 2px solid #2196f3;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .vocabulary-vault:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(33,150,243,0.2);
+        }
+
+        .vocabulary-vault h4 {
+            margin-top: 0;
+            color: #1976d2;
+        }
+
+        .vocabulary-vault ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .vocabulary-vault li {
+            margin: 12px 0;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 6px;
+            display: block;
+            line-height: 2.2;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .vocabulary-vault li:hover {
+            background: #f5f5f5;
+            transform: translateX(5px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        /* Support and Challenge Sections */
+        .support-section {
+            background: var(--color-enabler);
+            border: 2px solid var(--color-enabler-border);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .support-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(33,150,243,0.2);
+        }
+
+        .challenge-section {
+            background: var(--color-extender);
+            border: 2px solid var(--color-extender-border);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .challenge-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,152,0,0.2);
+        }
+
+        .support-section h4, .challenge-section h4 {
+            margin-top: 0;
+        }
+
+        /* Resources Grid */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .resource-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .resource-item.downloadable {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+
+        .resource-item.downloadable::after {
+            content: ' 💾';
+            font-size: 1.2em;
+        }
+
+        /* Exit Ticket */
+        .exit-question {
+            background: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .exit-question:hover {
+            box-shadow: 0 4px 12px rgba(255,152,0,0.2);
+            transform: translateX(5px);
+        }
+
+        .exit-question h4 {
+            margin-top: 0;
+            color: #f57c00;
+        }
+
+        /* Gallery */
+        .gallery-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .poem-card {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .poem-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+            border-color: #adb5bd;
+        }
+
+        .sticky-note {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ffc107;
+            color: #212529;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            transform: rotate(5deg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Inline Resource Links */
+        .inline-resource {
+            display: inline-flex;
+            align-items: center;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-size: 0.85em;
+            margin: 0 3px;
+            transition: all 0.2s ease;
+            border: 1px solid #bbdefb;
+        }
+
+        .inline-resource:hover {
+            background: #1976d2;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(25,118,210,0.3);
+        }
+
+        .inline-resource::before {
+            content: '📎';
+            margin-right: 4px;
+            font-size: 0.9em;
+        }
+
+        .inline-resource.download::before {
+            content: '💾';
+        }
+
+        /* Timer */
+        #timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #343a40;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        #timer.warning {
+            background: var(--color-warning);
+            color: #212529;
+            animation: pulse 1s infinite;
+        }
+
+        /* Present Controls */
+        .present-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+        }
+
+        .present-controls button {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .present-controls button:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        /* Removed Teacher Notes styles - no longer needed */
+
+        .editable-text {
+            background: #fff9c4;
+            border: 1px dashed #fbc02d;
+            padding: 8px 16px;
+            border-radius: 8px;
+            min-height: 30px;
+            cursor: text;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 0 8px;
+        }
+
+        .editable-text:focus {
+            outline: none;
+            border: 2px solid #fbc02d;
+            box-shadow: 0 0 10px rgba(251,192,45,0.3);
+        }
+
+        .editable-text:empty::before {
+            content: 'Click to add your text...';
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Interactive Button */
+        .interactive-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.4);
+        }
+
+        .interactive-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102,126,234,0.6);
+        }
+
+        .interactive-button.pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* List spacing for editable content */
+        ul li, ol li {
+            line-height: 1.8;
+            margin: 12px 0;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .container { margin: 10px; }
+            h1 { font-size: 2em; }
+            .navigation { flex-direction: column; }
+            .nav-button { width: 100%; margin: 5px 0; }
+            .slide { padding: 20px; }
+            .resources-grid { grid-template-columns: 1fr; }
+            .editable-text { margin: 4px; }
+        }
+
+        /* Print Styles */
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; margin: 0; }
+            #timer, .present-controls, .navigation, .slide-timer { display: none !important; }
+            .slide { 
+                display: block !important; 
+                page-break-after: always;
+                margin-bottom: 20px;
+            }
+            .editable-text {
+                border: none;
+                background: transparent;
+            }
+        }
+
+        /* Fullscreen Enhancement */
+        body:-webkit-full-screen .container,
+        body:-moz-full-screen .container,
+        body:fullscreen .container {
+            max-width: 100vw;
+            margin: 0;
+            border-radius: 0;
+            height: 100vh;
+        }
+
+        /* Teacher Tip */
+        .teacher-tip {
+            background: #e8f5e8;
+            border-left: 5px solid #4caf50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+        }
+        
+        .teacher-tip:hover {
+            box-shadow: 0 4px 12px rgba(76,175,80,0.2);
+            transform: translateX(5px);
+        }
+
+        .teacher-tip strong {
+            color: #2e7d32;
+        }
+
+        /* Visual Elements - NEW */
+        .visual-element {
+            margin: 10px auto;
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .visual-element:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: #e9ecef;
+        }
+
+        /* Emoji Visual Scenes */
+        .emoji-visual-scene {
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .emoji-visual-scene:hover {
+            transform: scale(1.05);
+        }
+
+        .emoji-visual-scene .sparkle-1,
+        .emoji-visual-scene .sparkle-2 {
+            display: none; /* Remove sparkle animations */
+        }
+
+        /* SVG Animations - Removed */
+        .handwriting-animation {
+            /* Animation removed for less distraction */
+        }
+
+        /* Process flows */
+        .process-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+
+        .process-flow .step {
+            background: #e3f2fd;
+            padding: 5px 15px;
+            border-radius: 15px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .process-flow .step:hover {
+            background: #bbdefb;
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(33,150,243,0.3);
+        }
+
+        /* Enhanced Editable Text */
+        .editable-text.student-name {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            min-width: 120px;
+            padding: 8px 16px;
+            margin: 0 8px;
+        }
+
+        .editable-text.timing {
+            background: #f3e5f5;
+            border-color: #9c27b0;
+            min-width: 50px;
+            text-align: center;
+            padding: 8px 12px;
+            margin: 0 6px;
+        }
+
+        .editable-text.example {
+            background: #e8f5e8;
+            border-color: #4caf50;
+            padding: 8px 16px;
+            margin: 0 8px;
+            min-width: 80px;
+        }
+
+        /* Vocabulary Lightning Visual */
+        .lightning-exchange-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 20px;
+            /* Animation removed */
+        }
+
+        .word-transform {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            transition: all 0.3s ease;
+        }
+        
+        .word-transform:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .basic-word-visual {
+            color: #999;
+            font-size: 18px;
+            text-decoration: line-through;
+        }
+
+        .arrow-visual {
+            font-size: 20px;
+            color: #28a745;
+            /* Animation removed */
+        }
+
+        .upgraded-word-visual {
+            color: #007bff;
+            font-size: 20px;
+            font-weight: bold;
+            /* Animation removed */
+        }
+
+        /* Closing Activity */
+        .closing-activity {
+            background: #f3e5f5;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #ba68c8;
+            transition: all 0.3s ease;
+        }
+        
+        .closing-activity:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(186,104,200,0.2);
+        }
+
+        .closing-activity h3 {
+            margin-top: 0;
+            color: #7b1fa2;
+        }
+
+        /* VIBE Check */
+        .vibe-check {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .vibe-check:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+
+        .vibe-check h4 {
+            margin-top: 0;
+            color: #00695c;
+        }
+
+        .vibe-check ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .vibe-check li {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .vibe-check li:hover {
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .vibe-check li strong {
+            color: #00695c;
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Session 6: Acrostic Poems</h1>
+            <p class="subtitle">From Word Lists to Word Art</p>
+        </header>
+        
+        <nav class="navigation">
+            <button class="nav-button active" onclick="showSlide(0)">Learning Intent</button>
+            <button class="nav-button" onclick="showSlide(1)">Warm Up</button>
+            <button class="nav-button" onclick="showSlide(2)">Launch: I Do</button>
+            <button class="nav-button" onclick="showSlide(3)">Launch: We Do</button>
+            <button class="nav-button" onclick="showSlide(4)">Explore</button>
+            <button class="nav-button" onclick="showSlide(5)">Review</button>
+            <button class="nav-button" onclick="showSlide(6)">Resources</button>
+        </nav>
+        
+        <main>
+            <!-- Slide 1: Learning Intent & Success Criteria -->
+            <section id="slide-1" class="slide active">
+                <!-- Visual Element: Poetry creation with sparkles -->
+                <div class="visual-element">
+                    <div class="emoji-visual-scene">
+                        <span>✏️</span>
+                        <span>📝</span>
+                        <span>➡️</span>
+                        <span>🎨</span>
+                        <span class="sparkle-1">✨</span>
+                        <span class="sparkle-2">✨</span>
+                    </div>
+                </div>
+                
+                <h2>Learning Intent & Success Criteria</h2>
+                
+                <div class="learning-box">
+                    <h3>Learning Intent:</h3>
+                    <p class="learning-intent">I am learning to create acrostic poems that paint vivid pictures using powerful vocabulary choices.</p>
+                </div>
+                
+                <div class="learning-box">
+                    <h3>Success Criteria:</h3>
+                    <ul class="success-criteria">
+                        <li><span class="success-checkbox" onclick="toggleSuccessCheckbox(this)"></span>I can craft an acrostic poem where each line connects to create one unified story or feeling</li>
+                        <li><span class="success-checkbox" onclick="toggleSuccessCheckbox(this)"></span>I can upgrade ordinary words to extraordinary vocabulary that makes readers feel something</li>
+                        <li><span class="success-checkbox" onclick="toggleSuccessCheckbox(this)"></span>I can use editing strategies to polish my poem until it shines</li>
+                    </ul>
+                </div>
+                
+                <button class="interactive-button pulse" onclick="showSlide(1)">
+                    Let's Begin! →
+                </button>
+                
+                <!-- Teacher Guidance -->
+                <div class="teacher-tip">
+                    <strong>Teacher Guidance for Learning Intent:</strong>
+                    <p>Have students click each success criteria checkbox as they understand it. Emphasize that this isn't about listing words - it's about creating a unified picture with powerful vocabulary.</p>
+                </div>
+            </section>
+
+            <!-- Slide 2: Warm Up -->
+            <section id="slide-2" class="slide">
+                <!-- Visual Element: Word transformation with lightning -->
+                <div class="visual-element">
+                    <div class="lightning-exchange-visual">
+                        <span>👥</span>
+                        <span>⚡</span>
+                        <span>💬</span>
+                        <span>⚡</span>
+                        <span>🧠</span>
+                    </div>
+                </div>
+                
+                <h2>Warm Up: Vocabulary Lightning Exchange</h2>
+                <div class="slide-timer" data-duration="300">
+                    <span class="timer-text">⏱️ 5:00</span>
+                    <button onclick="startSlideTimer(this, 300)">▶️</button>
+                    <button onclick="resetSlideTimer(this, 300)">🔄</button>
+                </div>
+                
+                <div class="activity-box">
+                    <p>Alright poets, let's wake up those word brains!</p>
+                    
+                    <h3>Here's how Vocabulary Lightning Exchange works:</h3>
+                    <ol class="step-list">
+                        <li>You've got <span class="editable-text timing" contenteditable="true">30</span> seconds with each partner</li>
+                        <li>Partner A says a basic word (like <span class="editable-text example" contenteditable="true">big</span> or <span class="editable-text example" contenteditable="true">happy</span>)</li>
+                        <li>Partner B fires back the most creative synonym they can think of (<span class="editable-text example" contenteditable="true">colossal</span> or <span class="editable-text example" contenteditable="true">euphoric</span>)
+                        <li>When you hear the bell - DING! - rotate to your next partner and switch roles</li>
+                    </ol>
+                </div>
+                
+                <div class="vocabulary-vault">
+                    <h4>Final Challenge Round:</h4>
+                    <p>As a class, let's upgrade these tired words:</p>
+                    <ul>
+                        <li><span class="editable-text example" contenteditable="true">nice</span> → ?</li>
+                        <li><span class="editable-text example" contenteditable="true">said</span> → ?</li>
+                        <li><span class="editable-text example" contenteditable="true">went</span> → ?</li>
+                    </ul>
+                </div>
+                
+                <p style="text-align: center; font-size: 1.1em; color: #007bff; margin-top: 30px;">
+                    Trust me, this is going to power up your poems in ways you can't imagine yet!
+                </p>
+                
+                <!-- Teacher Guidance -->
+                <div class="teacher-tip">
+                    <strong>Teacher Guidance for Warm Up:</strong>
+                    <p>Pre-plan mixed ability pairs. Have a bell or timer ready for 30-second rotations. Keep energy high - this sets the tone for creative vocabulary use throughout the lesson.</p>
+                </div>
+            </section>
+
+            <!-- Slide 3: Launch - I Do -->
+            <section id="slide-3" class="slide">
+                <!-- Visual Element: Transformation from basic to amazing -->
+                <div class="visual-element">
+                    <div class="word-transform">
+                        <span class="basic-word-visual">basic</span>
+                        <span class="arrow-visual">➡️</span>
+                        <span class="upgraded-word-visual">AMAZING!</span>
+                    </div>
+                </div>
+                
+                <h2>Launch: The Acrostic Transformation</h2>
+                <div class="slide-timer" data-duration="480">
+                    <span class="timer-text">⏱️ 8:00</span>
+                    <button onclick="startSlideTimer(this, 480)">▶️</button>
+                    <button onclick="resetSlideTimer(this, 480)">🔄</button>
+                </div>
+                
+                <p>Okay, watch this magic happen. Here's what most people think an acrostic poem is:</p>
+                
+                <div class="example-box negative">
+                    <h4>❌ Boring List Poem:</h4>
+                    <div class="poem-display">
+                        <div class="poem-line"><strong>S</strong>ky is dark</div>
+                        <div class="poem-line"><strong>T</strong>hunder is loud</div>
+                        <div class="poem-line"><strong>O</strong>utside is wet</div>
+                        <div class="poem-line"><strong>R</strong>ain falls down</div>
+                        <div class="poem-line"><strong>M</strong>y umbrella is up</div>
+                    </div>
+                </div>
+                
+                <p style="text-align: center; margin: 20px 0;">Boring, right? It's just a list dressed up as a poem. Now watch what happens when we actually craft it like poets:</p>
+                
+                <div class="example-box" style="background: #e8f5e8; border-color: #4caf50;">
+                    <h4>✨ Crafted Acrostic Poem:</h4>
+                    <div class="poem-display">
+                        <div class="poem-line"><strong>S</strong>inister clouds devour the daylight</div>
+                        <div class="poem-line"><strong>T</strong>hunderclaps shatter the silence</div>
+                        <div class="poem-line"><strong>O</strong>minous winds whisper urgent warnings</div>
+                        <div class="poem-line"><strong>R</strong>elentless raindrops percussion the pavement</div>
+                        <div class="poem-line"><strong>M</strong>onumental power unleashed from above</div>
+                    </div>
+                </div>
+                
+                <p style="text-align: center; margin: 20px 0; font-size: 1.1em;">
+                    Can you feel the difference? The second one puts you RIGHT in that storm. Every line works together to create one powerful experience. That's what we're aiming for today - not just words that start with letters, but lines that create magic together.
+                </p>
+                
+                <div class="teacher-tip">
+                    <strong>Quick Check:</strong> Turn to <span class="editable-text" contenteditable="true">your partner</span> - which specific words made the biggest difference? Why?
+                </div>
+                
+                <!-- Teacher Guidance -->
+                <div class="teacher-tip">
+                    <strong>Teacher Guidance for Launch (I Do):</strong>
+                    <p>Read both poems aloud with different energy levels. For the boring one, use a flat monotone. For the crafted one, use dramatic expression. The contrast helps students feel the difference powerful vocabulary makes.</p>
+                </div>
+            </section>
+
+            <!-- Slide 4: Launch - We Do -->
+            <section id="slide-4" class="slide">
+                <!-- Visual Element: Collaborative creation -->
+                <div class="visual-element">
+                    <div class="emoji-visual-scene">
+                        <span>👥</span>
+                        <span>💭</span>
+                        <span>✏️</span>
+                        <span>📝</span>
+                        <span>🌟</span>
+                    </div>
+                </div>
+                
+                <h2>Launch: Building Magic Together</h2>
+                <div class="slide-timer" data-duration="420">
+                    <span class="timer-text">⏱️ 7:00</span>
+                    <button onclick="startSlideTimer(this, 420)">▶️</button>
+                    <button onclick="resetSlideTimer(this, 420)">🔄</button>
+                </div>
+                
+                <p>Now let's create one together. Our word is <strong><span class="editable-text example" contenteditable="true">GRADE</span></strong> - and we need to capture what makes our classroom special.</p>
+                
+                <div class="activity-box">
+                    <h3>First, let's vote on our theme:</h3>
+                    <ul>
+                        <li><span class="editable-text" contenteditable="true">Our unique classroom community</span></li>
+                        <li><span class="editable-text" contenteditable="true">Our learning adventures together</span></li>
+                        <li><span class="editable-text" contenteditable="true">What makes us different from other grades</span></li>
+                    </ul>
+                </div>
+                
+                <div class="poem-display" style="background: #fff3e0; border: 2px dashed #ff9800;">
+                    <h4>Building Our Poem:</h4>
+                    <div class="poem-line"><strong>G</strong> _______________</div>
+                    <p style="font-size: 0.9em; color: #666; margin-left: 30px;"><em>Possible starters: Gathering, Generating, Growing...</em></p>
+                    
+                    <div class="poem-line"><strong>R</strong> _______________</div>
+                    <p style="font-size: 0.9em; color: #666; margin-left: 30px;"><em>Possible starters: Radiating, Reaching, Remarkable...</em></p>
+                    
+                    <div class="poem-line"><strong>A</strong> _______________</div>
+                    <div class="poem-line"><strong>D</strong> _______________</div>
+                    <div class="poem-line"><strong>E</strong> _______________</div>
+                </div>
+                
+                <div class="vocabulary-vault">
+                    <h4>Vocabulary Vault (project these upgrades):</h4>
+                    <ul>
+                        <li>Instead of <span class="editable-text example" contenteditable="true">good</span> → <span class="editable-text example" contenteditable="true">exceptional, phenomenal, outstanding</span></li>
+                        <li>Instead of <span class="editable-text example" contenteditable="true">fun</span> → <span class="editable-text example" contenteditable="true">exhilarating, captivating, thrilling</span></li>
+                        <li>Instead of <span class="editable-text example" contenteditable="true">friends</span> → <span class="editable-text example" contenteditable="true">companions, allies, teammates</span></li>
+                    </ul>
+                </div>
+                
+                <p style="text-align: center; font-size: 1.1em; color: #f57c00; margin-top: 20px;">
+                    Remember: we're not just filling in blanks - we're painting a picture of who we are!
+                </p>
+                
+                <!-- Teacher Guidance -->
+                <div class="teacher-tip">
+                    <strong>Teacher Guidance for We Do:</strong>
+                    <p>Let students vote on the theme - ownership increases engagement. Scaffold vocabulary choices by having students justify why their word creates a stronger image. Accept all reasonable suggestions but guide toward unified theme.</p>
+                </div>
+            </section>
+
+            <!-- Slide 5: Explore -->
+            <section id="slide-5" class="slide">
+                <!-- Visual Element: Creative workshop -->
+                <div class="visual-element">
+                    <div class="process-flow">
+                        <div class="step">1️⃣ Think</div>
+                        <div class="step">2️⃣ Create</div>
+                        <div class="step">3️⃣ Polish</div>
+                    </div>
+                </div>
+                
+                <h2>Explore: Your Poetry Workshop</h2>
+                <div class="slide-timer" data-duration="1200">
+                    <span class="timer-text">⏱️ 20:00</span>
+                    <button onclick="startSlideTimer(this, 1200)">▶️</button>
+                    <button onclick="resetSlideTimer(this, 1200)">🔄</button>
+                </div>
+                
+                <div class="activity-box">
+                    <h3>Your Mission: Create TWO Acrostic Masterpieces</h3>
+                    
+                    <h4>Poem 1: Your Name (<span class="editable-text timing" contenteditable="true">8</span> minutes)</h4>
+                    <p>This is your poetic fingerprint - a poem that captures who you are, what you dream about, or what makes you unique. No one else can write this poem because no one else is you!</p>
+                    
+                    <h4>Poem 2: Your Choice (<span class="editable-text timing" contenteditable="true">7</span> minutes)</h4>
+                    <p>Pick something you're passionate about:</p>
+                    <ul>
+                        <li>A place that matters to you <span class="editable-text example" contenteditable="true" style="min-width: 200px;">BEACH, SPACE, HOME</span></li>
+                        <li>A feeling you know well <span class="editable-text example" contenteditable="true" style="min-width: 200px;">BRAVE, PEACE, HAPPY</span></li>
+                        <li>Something you love <span class="editable-text example" contenteditable="true" style="min-width: 250px;">GAMING, MUSIC, SPORT, BOOKS</span></li>
+                    </ul>
+                </div>
+                
+                <div class="vibe-check">
+                    <h4>The Editing Power-Up (5 minutes)</h4>
+                    <p>Find your editing partner and use the VIBE check:</p>
+                    <ul>
+                        <li><strong>V</strong>ocabulary: Circle one word to upgrade together</li>
+                        <li><strong>I</strong>dea: Does every line connect to the theme?</li>
+                        <li><strong>B</strong>eginning letters: All correct and natural?</li>
+                        <li><strong>E</strong>nding: Does the last line leave an impact?</li>
+                    </ul>
+                </div>
+                
+                <!-- Differentiation -->
+                <div class="support-section">
+                    <h4>✓ Enabler Support:</h4>
+                    <p>Start with a 4-letter word or nickname. Focus on making each line at least 3 words long. Use the vocabulary starter cards on your table for inspiration.</p>
+                    <p>Need help getting started? <a href="#" class="inline-resource download" onclick="downloadResource('acrostic_starter_strips.html')">Get Support Strips</a></p>
+                </div>
+                
+                <div class="challenge-section">
+                    <h4>⚡ Extender Challenge:</h4>
+                    <p>Create a reverse acrostic (last letters spell your word) OR make each line exactly 7 syllables for a haiku-acrostic fusion!</p>
+                    <p>Ready for more challenge? <a href="#" class="inline-resource download" onclick="downloadResource('acrostic_challenge_cards.html')">Get Challenge Cards</a></p>
+                </div>
+                
+                <div class="resources-grid">
+                    <div class="resource-item downloadable" onclick="downloadResource('acrostic_starter_strips.html')">
+                        📄 Starter Support Strips
+                    </div>
+                    <div class="resource-item downloadable" onclick="downloadResource('acrostic_challenge_cards.html')">
+                        📄 Challenge Extensions
+                    </div>
+                    <div class="resource-item downloadable" onclick="downloadResource('vocabulary_upgrade_bank.html')">
+                        📝 Vocabulary Upgrade Bank
+                    </div>
+                    <div class="resource-item downloadable" onclick="downloadResource('acrostic_templates.html')">
+                        📄 Acrostic Templates
+                    </div>
+                </div>
+                
+                <div class="teacher-tip">
+                    <strong>Resources at Your Fingertips:</strong>
+                    <ul>
+                        <li>Thesaurus books and wordhippo.com on tablets</li>
+                        <li>Vocabulary upgrade cards on tables</li>
+                        <li>Acrostic templates (or create your own design!)</li>
+                    </ul>
+                </div>
+                
+                <!-- Differentiation Guidance -->
+                <div class="teacher-tip">
+                    <strong>Differentiation Quick Reference:</strong>
+                    <p><strong>For students needing support:</strong> Direct to enabler strips, pair with confident peer, accept shorter poems (3-4 letters), focus on one strong vocabulary upgrade per poem.</p>
+                    <p><strong>For extension students:</strong> Challenge with reverse acrostics, syllable constraints, or theme restrictions. Have them mentor others during editing phase.</p>
+                </div>
+                
+                <!-- Teacher Guidance -->
+                <div class="teacher-tip">
+                    <strong>Teacher Guidance for Explore:</strong>
+                    <p>Circulate actively during independent work. Look for students using basic vocabulary and prompt with "What's a more powerful word for...?". During VIBE check partnerships, ensure students are giving specific feedback, not just "It's good".</p>
+                </div>
+            </section>
+
+            <!-- Slide 6: Review -->
+            <section id="slide-6" class="slide">
+                <!-- Visual Element: Gallery celebration -->
+                <div class="visual-element">
+                    <div class="emoji-visual-scene">
+                        <span>🖼️</span>
+                        <span>👏</span>
+                        <span>🌟</span>
+                        <span>📝</span>
+                        <span>🎉</span>
+                    </div>
+                </div>
+                
+                <h2>Review: Poetry Gallery & Reflection</h2>
+                <div class="slide-timer" data-duration="300">
+                    <span class="timer-text">⏱️ 5:00</span>
+                    <button onclick="startSlideTimer(this, 300)">▶️</button>
+                    <button onclick="resetSlideTimer(this, 300)">🔄</button>
+                </div>
+                
+                <div class="activity-box">
+                    <h3>Gallery Lightning Round (<span class="editable-text timing" contenteditable="true">2</span> minutes)</h3>
+                    <p>Post your favourite acrostic on the display wall and take a gallery walk. Find ONE line from someone else's poem that makes you go "Wow!" Be ready to share why it caught your attention.</p>
+                </div>
+                
+                <div class="gallery-preview">
+                    <div class="poem-card">
+                        <p>Student work example...</p>
+                        <div class="sticky-note">⭐ Powerful verb!</div>
+                    </div>
+                    <div class="poem-card">
+                        <p>Another example...</p>
+                        <div class="sticky-note">⭐ Great imagery!</div>
+                    </div>
+                </div>
+                
+                <div class="closing-activity">
+                    <h3>Reflection Circle (2 minutes)</h3>
+                    <p>Quick whip-around - share one of these:</p>
+                    <ul>
+                        <li>Your proudest vocabulary upgrade</li>
+                        <li>A new word you discovered today</li>
+                        <li>Which classmate's theme surprised you most</li>
+                    </ul>
+                </div>
+                
+                <div class="exit-question">
+                    <h4>Exit Ticket (1 minute):</h4>
+                    <p>On your way out, drop a note in the box answering: "How did upgrading my vocabulary change the power of my poem?"</p>
+                </div>
+                
+                <p style="text-align: center; margin-top: 30px; font-size: 1.1em; color: #007bff;">
+                    <strong>Don't forget:</strong> Choose your best acrostic to polish for your poetry anthology. These are going to look amazing in your published collection!
+                </p>
+                
+                <!-- Assessment Guidance -->
+                <div class="teacher-tip" style="background: #f3e5f5; border-left: 5px solid #ba68c8; border-radius: 8px;">
+                    <strong>Quick Assessment Indicators:</strong>
+                    <ul>
+                        <li><strong>Achieving:</strong> Creates unified poems where all lines connect to theme, uses 3+ vocabulary upgrades, helps peers meaningfully</li>
+                        <li><strong>Developing:</strong> Creates basic acrostics with 1-2 vocabulary upgrades, may need prompting to connect lines thematically</li>
+                        <li><strong>Needs Support:</strong> Struggles with structure, relies on basic vocabulary, needs scaffolding for line creation</li>
+                    </ul>
+                    <p><strong>Exit Ticket Analysis:</strong> Look for students who can articulate HOW vocabulary changes impact - this shows metacognitive understanding.</p>
+                </div>
+                
+                <!-- Teacher Guidance -->
+                <div class="teacher-tip">
+                    <strong>Teacher Guidance for Review:</strong>
+                    <p>During gallery walk, model specific praise: "I love how Sarah used 'devoured' instead of 'ate' - it creates such a vivid image!". Keep exit ticket responses for assessment data on vocabulary growth.</p>
+                </div>
+            </section>
+
+            <!-- Teacher Resources -->
+            <section id="slide-7" class="slide">
+                <h2>Teacher Resources Package</h2>
+                
+                <div class="teacher-tip">
+                    <strong>Post-Session Reflection Prompts:</strong>
+                    <ul>
+                        <li>Which vocabulary upgrades surprised you most?</li>
+                        <li>What differentiation strategies worked well?</li>
+                        <li>Which students showed unexpected creativity?</li>
+                        <li>What would you adjust for next time?</li>
+                    </ul>
+                </div>
+                
+                <div class="resources-grid">
+                    <div class="resource-item">
+                        <h4>Resources Checklist:</h4>
+                        <ul style="text-align: left;">
+                            <li>Thesaurus books</li>
+                            <li>Tablets with wordhippo.com</li>
+                            <li>Vocabulary upgrade cards</li>
+                            <li>Acrostic templates</li>
+                            <li>Display wall space</li>
+                            <li>Exit ticket box</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-item">
+                        <h4>Session Timeline:</h4>
+                        <table style="width: 100%;">
+                            <tr><td>Warm Up</td><td>5 mins</td></tr>
+                            <tr><td>Launch (I Do)</td><td>8 mins</td></tr>
+                            <tr><td>Launch (We Do)</td><td>7 mins</td></tr>
+                            <tr><td>Explore</td><td>20 mins</td></tr>
+                            <tr><td>Review</td><td>5 mins</td></tr>
+                            <tr style="font-weight: bold;"><td>Total</td><td>45 mins</td></tr>
+                        </table>
+                    </div>
+                    
+                    <div class="resource-item">
+                        <h4>Digital Tools:</h4>
+                        <ul style="text-align: left;">
+                            <li>wordhippo.com (kid-friendly thesaurus)</li>
+                            <li>Padlet for collaborative poem building</li>
+                            <li>Canva templates for final publishing</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="vocabulary-vault">
+                    <h4>Vocabulary Upgrade Bank:</h4>
+                    <ul>
+                        <li>Movement: walk→stride, run→sprint, move→glide</li>
+                        <li>Emotions: happy→elated, sad→melancholic, angry→furious</li>
+                        <li>Size: big→enormous, small→minuscule, tall→towering</li>
+                        <li>Said alternatives: whispered, declared, announced, murmured</li>
+                    </ul>
+                </div>
+                
+                <div class="teacher-tip">
+                    <strong>Assessment Quick Notes:</strong>
+                    Watch for students who:
+                    <ul>
+                        <li>Move beyond list-making to connected lines</li>
+                        <li>Take risks with vocabulary choices</li>
+                        <li>Help partners meaningfully during editing</li>
+                        <li>Show growth from first to second poem</li>
+                    </ul>
+                    
+                    <p style="margin-top: 20px;">
+                        <strong>Remember:</strong> The goal isn't perfection - it's transformation. When students see how upgrading just a few words can completely change their poem's impact, they'll never look at vocabulary the same way again!
+                    </p>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Floating elements -->
+    <div id="timer">
+        <span id="timer-display">40:00</span>
+        <button onclick="startTimer()">▶️</button>
+        <button onclick="pauseTimer()">⏸️</button>
+        <button onclick="resetTimer()">🔄</button>
+    </div>
+    
+    <div class="present-controls">
+        <button onclick="toggleFullscreen()" title="Fullscreen">🖥️</button>
+        <button onclick="showSlide(currentSlide - 1)" title="Previous">⬅️</button>
+        <button onclick="showSlide(currentSlide + 1)" title="Next">➡️</button>
+    </div>
+    
+    <script>
+        // Global state
+        let currentSlide = 0;
+        let timerSeconds = 2400; // 40 minutes
+        let timerInterval = null;
+        let slideTimers = new Map();
+        let visitedSlides = new Set();
+
+        // Slide Navigation
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.slide');
+            const buttons = document.querySelectorAll('.nav-button');
+            
+            // Validate index
+            if (index < 0 || index >= slides.length) return;
+            
+            // Mark previous slide as visited
+            if (currentSlide >= 0) {
+                visitedSlides.add(currentSlide);
+            }
+            
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            buttons.forEach((btn, i) => {
+                btn.classList.remove('active');
+                if (visitedSlides.has(i)) {
+                    btn.classList.add('visited');
+                }
+            });
+            
+            // Show selected slide
+            if (slides[index]) {
+                slides[index].classList.add('active');
+                buttons[index]?.classList.add('active');
+                currentSlide = index;
+                
+                // Smooth scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            const totalSlides = document.querySelectorAll('.slide').length;
+            
+            switch(e.key) {
+                case 'ArrowRight':
+                    if (currentSlide < totalSlides - 1) {
+                        showSlide(currentSlide + 1);
+                    }
+                    break;
+                case 'ArrowLeft':
+                    if (currentSlide > 0) {
+                        showSlide(currentSlide - 1);
+                    }
+                    break;
+                case 'f':
+                    toggleFullscreen();
+                    break;
+            }
+        });
+
+        // Timer Functionality
+        function startTimer() {
+            if (timerInterval) {
+                pauseTimer();
+                return;
+            }
+            
+            timerInterval = setInterval(() => {
+                timerSeconds--;
+                updateTimerDisplay();
+                
+                if (timerSeconds <= 300) { // 5 min warning
+                    document.getElementById('timer').classList.add('warning');
+                }
+                
+                if (timerSeconds <= 0) {
+                    pauseTimer();
+                    alert('Time\'s up! Great work everyone!');
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timerSeconds = 2400;
+            document.getElementById('timer').classList.remove('warning');
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('timer-display').textContent = display;
+        }
+
+        // Enhanced Fullscreen
+        function toggleFullscreen() {
+            if (!document.fullscreenElement && 
+                !document.mozFullScreenElement && 
+                !document.webkitFullscreenElement && 
+                !document.msFullscreenElement) {
+                
+                // Enter fullscreen
+                const element = document.documentElement;
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.mozRequestFullScreen) {
+                    element.mozRequestFullScreen();
+                } else if (element.webkitRequestFullscreen) {
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) {
+                    element.msRequestFullscreen();
+                }
+            } else {
+                // Exit fullscreen
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+
+        // Individual Slide Timer Functions
+        function startSlideTimer(button, duration) {
+            const timerElement = button.parentElement;
+            const timerText = timerElement.querySelector('.timer-text');
+            const timerId = timerElement.dataset.duration;
+            
+            // Stop existing timer if running
+            if (slideTimers.has(timerId)) {
+                clearInterval(slideTimers.get(timerId).interval);
+            }
+            
+            let remainingSeconds = duration;
+            timerElement.classList.add('active');
+            
+            const interval = setInterval(() => {
+                remainingSeconds--;
+                const minutes = Math.floor(remainingSeconds / 60);
+                const seconds = remainingSeconds % 60;
+                timerText.textContent = `⏱️ ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (remainingSeconds <= 60) {
+                    timerElement.classList.add('warning');
+                }
+                
+                if (remainingSeconds <= 0) {
+                    clearInterval(interval);
+                    timerElement.classList.remove('active', 'warning');
+                    slideTimers.delete(timerId);
+                    
+                    // Visual notification
+                    timerText.textContent = '⏰ Time up!';
+                    setTimeout(() => {
+                        resetSlideTimer(button, duration);
+                    }, 3000);
+                }
+            }, 1000);
+            
+            slideTimers.set(timerId, { interval, duration });
+        }
+
+        function resetSlideTimer(button, duration) {
+            const timerElement = button.parentElement;
+            const timerText = timerElement.querySelector('.timer-text');
+            const timerId = timerElement.dataset.duration;
+            
+            // Clear existing timer
+            if (slideTimers.has(timerId)) {
+                clearInterval(slideTimers.get(timerId).interval);
+                slideTimers.delete(timerId);
+            }
+            
+            // Reset display
+            const minutes = Math.floor(duration / 60);
+            const seconds = duration % 60;
+            timerText.textContent = `⏱️ ${minutes}:${seconds.toString().padStart(2, '0')}`;
+            timerElement.classList.remove('active', 'warning');
+        }
+
+        // Resource Download Function
+        function downloadResource(filename) {
+            // Create downloadable content based on filename
+            let content = '';
+            let mimeType = 'text/html';
+            
+            switch(filename) {
+                case 'acrostic_starter_strips.html':
+                    content = generateAcrosticStarterStripsHTML();
+                    break;
+                case 'acrostic_challenge_cards.html':
+                    content = generateAcrosticChallengeCardsHTML();
+                    break;
+                case 'vocabulary_upgrade_bank.html':
+                    content = generateVocabularyUpgradeBankHTML();
+                    break;
+                case 'acrostic_templates.html':
+                    content = generateAcrosticTemplatesHTML();
+                    break;
+            }
+            
+            // Create and trigger download
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Resource Generation Functions
+        function generateAcrosticStarterStripsHTML() {
+            return `<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acrostic Starter Support Strips</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .header { text-align: center; background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+        .header h1 { color: #1976d2; margin: 0; font-size: 2em; }
+        .header p { color: #666; margin: 10px 0 0 0; }
+        .strips-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .strip { background: white; border: 2px dashed #2196f3; border-radius: 8px; padding: 15px; margin: 10px 0; text-align: center; font-size: 1.1em; min-height: 60px; display: flex; align-items: center; justify-content: center; }
+        .strip.sentence-starter { background: #e8f5e8; border-color: #4caf50; }
+        .instructions { background: #fff3e0; border-left: 5px solid #ff9800; padding: 20px; margin: 30px 0; border-radius: 5px; }
+        .cut-line { border-top: 2px dashed #ccc; margin: 15px 0; }
+        @media print { body { background: white; } .header { background: #f0f0f0; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📝 Acrostic Starter Support Strips</h1>
+        <p>Lesson Support Materials - Cut along dashed lines</p>
+    </div>
+
+    <div class="strips-container">
+        <div class="strip">My name starts with [letter] and I...</div>
+        <div class="strip">[Letter] is for [word] which makes me...</div>
+        <div class="strip">Everyone knows I love to...</div>
+        <div class="strip">Always ready to...</div>
+        <div class="strip">Never forget that I...</div>
+        
+        <div class="cut-line"></div>
+        
+        <div class="strip sentence-starter">Brave enough to...</div>
+        <div class="strip sentence-starter">Eager to learn about...</div>
+        <div class="strip sentence-starter">Amazing at...</div>
+        <div class="strip sentence-starter">Creating new...</div>
+        <div class="strip sentence-starter">Happy when I...</div>
+        
+        <div class="cut-line"></div>
+        
+        <div class="strip">Sentence starters for places:</div>
+        <div class="strip">Beaches are where...</div>
+        <div class="strip">Home feels like...</div>
+        <div class="strip">Space contains...</div>
+        <div class="strip">Parks have...</div>
+    </div>
+
+    <div class="instructions">
+        <strong>📋 Instructions:</strong> Print this page on cardstock for durability. Cut along the dashed lines to create individual support strips. Distribute to students who need additional scaffolding during the acrostic poetry activity. Students can use these as starting points and build from there.
+    </div>
+</body>
+</html>`;
+        }
+
+        function generateAcrosticChallengeCardsHTML() {
+            return `<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acrostic Challenge Extensions</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .header { text-align: center; background: #fff3e0; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+        .header h1 { color: #f57c00; margin: 0; font-size: 2em; }
+        .header p { color: #666; margin: 10px 0 0 0; }
+        .challenge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .challenge-card { background: white; border: 3px solid #ff9800; border-radius: 12px; padding: 20px; }
+        .challenge-card h3 { color: #f57c00; margin-top: 0; }
+        .reverse-acrostic { background: #f3e5f5; border-color: #9c27b0; }
+        .reverse-acrostic h3 { color: #7b1fa2; }
+        .syllable-challenge { background: #e8f5e8; border-color: #4caf50; }
+        .syllable-challenge h3 { color: #388e3c; }
+        .challenge-item { background: rgba(255,255,255,0.8); margin: 8px 0; padding: 10px; border-radius: 6px; border-left: 4px solid currentColor; }
+        .instructions { background: #ffebee; border-left: 5px solid #f44336; padding: 20px; margin: 30px 0; border-radius: 5px; }
+        @media print { body { background: white; } .header { background: #f0f0f0; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 Acrostic Challenge Extensions</h1>
+        <p>Advanced Activities for High Achievers</p>
+    </div>
+
+    <div class="challenge-grid">
+        <div class="challenge-card reverse-acrostic">
+            <h3>Reverse Acrostic Challenge</h3>
+            <p>Create an acrostic where the LAST letters of each line spell your word!</p>
+            <div class="challenge-item">Example for CAT:</div>
+            <div class="challenge-item">A fierce preda<strong>C</strong></div>
+            <div class="challenge-item">With whiskers th<strong>A</strong></div>
+            <div class="challenge-item">Purr so swee<strong>T</strong></div>
+        </div>
+        
+        <div class="challenge-card syllable-challenge">
+            <h3>Haiku-Acrostic Fusion</h3>
+            <p>Each line must have exactly 7 syllables!</p>
+            <div class="challenge-item">Count syllables carefully</div>
+            <div class="challenge-item">Create rhythm and balance</div>
+            <div class="challenge-item">Challenge your word choices</div>
+        </div>
+        
+        <div class="challenge-card">
+            <h3>Advanced Techniques</h3>
+            <div class="challenge-item">Use alliteration in every line</div>
+            <div class="challenge-item">Include a metaphor in each line</div>
+            <div class="challenge-item">Create a story arc from start to finish</div>
+            <div class="challenge-item">Use only action verbs</div>
+            <div class="challenge-item">Write from an object's perspective</div>
+        </div>
+        
+        <div class="challenge-card">
+            <h3>Theme Challenges</h3>
+            <div class="challenge-item">Write about emotions without naming them</div>
+            <div class="challenge-item">Create a time-travel acrostic</div>
+            <div class="challenge-item">Make each line a different season</div>
+            <div class="challenge-item">Use only nature imagery</div>
+        </div>
+    </div>
+
+    <div class="instructions">
+        <strong>🎯 Challenge Goal:</strong> Choose at least one challenge card and apply it to your acrostic poem. You can combine multiple challenges for an even greater test of your poetry skills!
+    </div>
+</body>
+</html>`;
+        }
+
+        function generateVocabularyUpgradeBankHTML() {
+            return `<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary Upgrade Bank</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .header { text-align: center; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+        .header h1 { color: #333; margin: 0; font-size: 2em; }
+        .upgrade-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .upgrade-category { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .movement { border-left: 5px solid #ff6b6b; }
+        .emotions { border-left: 5px solid #4fc3f7; }
+        .descriptive { border-left: 5px solid #81c784; }
+        .said { border-left: 5px solid #ffb74d; }
+        .size { border-left: 5px solid #ba68c8; }
+        .upgrade-category h3 { margin-top: 0; color: #333; font-size: 1.3em; }
+        .movement h3 { color: #e53e3e; }
+        .emotions h3 { color: #0288d1; }
+        .descriptive h3 { color: #388e3c; }
+        .said h3 { color: #f57c00; }
+        .size h3 { color: #7b1fa2; }
+        .word-pair { display: flex; justify-content: space-between; align-items: center; margin: 10px 0; padding: 8px 12px; background: #f8f9fa; border-radius: 6px; }
+        .basic-word { color: #666; text-decoration: line-through; }
+        .upgraded-word { color: #333; font-weight: bold; }
+        .arrow { color: #28a745; margin: 0 10px; }
+        @media print { body { background: white; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 Vocabulary Upgrade Bank</h1>
+        <p>Transform ordinary words into extraordinary vocabulary!</p>
+    </div>
+
+    <div class="upgrade-grid">
+        <div class="upgrade-category movement">
+            <h3>Movement Words</h3>
+            <div class="word-pair">
+                <span class="basic-word">walk</span>
+                <span class="arrow">→</span>
+                <span class="upgraded-word">stride, stroll, march, wander</span>
+            </div>
+            <div class="word-pair">
+                <span class="basic-word">run</span>
+                <span class="arrow">→</span>
+                <span class="upgraded-word">sprint, dash, race, bolt</span>
+            </div>
+            <div class="word-pair">
+                <span class="basic-word">move</span>
+                <span class="arrow">→</span>
+                <span class="upgraded-word">glide, float, drift, soar</span>
+            </div>
+        </div>
+
+        <div class="upgrade-category emotions">
+            <h3>Emotion Words</h3>
+            <div class="word-pair">
+                <span class="basic-word">happy</span>
+                <span class="arrow">→</span>
+                <span class="upgraded-word">elated, joyful, euphoric, blissful</span>
+            </div>
+            <div class="word-pair">
+                <span class="basic-word">sad</span>
+                <span class="arrow">→</span>
+                <span class="upgraded-word">melancholic, sorrowful, dejected</span>
+            </div>
+            <div class="word-pair">
+                <span class="basic-word">angry</span>
+                <span class="arrow">→</span>
+                <span class="upgraded-word">furious, livid, enraged, irate</span>
+            </div>
+        </div>
+
+        <div class="upgrade-category descriptive">
+            <h3>Descriptive Words</h3>
+            <div class="word-pair">
+                <span class="basic-word">nice</span>
+                <span class="arrow">→</span>
+                <span class="upgraded-word">delightful, charming, splendid</span>
+            </div>
+            <div class="word-pair">
+                <span class="basic-word">good</span>
+                <span class="arrow">→</span>
+                <span class="upgraded-word">exceptional, outstanding, remarkable</span>
+            </div>
+            <div class="word-pair">
+                <span class="basic-word">bad</span>
+                <span class="arrow">→</span>
+                <span class="upgraded-word">dreadful, terrible, awful, horrid</span>
+            </div>
+        </div>
+
+        <div class="upgrade-category said">
+            <h3>Said Alternatives</h3>
+            <div class="word-pair">
+                <span class="basic-word">said</span>
+                <span class="arrow">→</span>
+                <span class="upgraded-word">whispered, declared, announced</span>
+            </div>
+            <div class="word-pair">
+                <span class="basic-word">asked</span>
+                <span class="arrow">→</span>
+                <span class="upgraded-word">inquired, questioned, wondered</span>
+            </div>
+            <div class="word-pair">
+                <span class="basic-word">told</span>
+                <span class="arrow">→</span>
+                <span class="upgraded-word">informed, explained, revealed</span>
+            </div>
+        </div>
+
+        <div class="upgrade-category size">
+            <h3>Size & Scale Words</h3>
+            <div class="word-pair">
+                <span class="basic-word">big</span>
+                <span class="arrow">→</span>
+                <span class="upgraded-word">enormous, colossal, gigantic, vast</span>
+            </div>
+            <div class="word-pair">
+                <span class="basic-word">small</span>
+                <span class="arrow">→</span>
+                <span class="upgraded-word">tiny, minuscule, petite, minute</span>
+            </div>
+            <div class="word-pair">
+                <span class="basic-word">tall</span>
+                <span class="arrow">→</span>
+                <span class="upgraded-word">towering, lofty, soaring, elevated</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>`;
+        }
+
+        function generateAcrosticTemplatesHTML() {
+            return `<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acrostic Poem Templates</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 20px; background: #f5f5f5; }
+        .header { text-align: center; background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+        .header h1 { color: #1976d2; margin: 0; font-size: 2em; }
+        .template { background: white; border: 2px solid #2196f3; border-radius: 8px; padding: 30px; margin: 20px 0; page-break-inside: avoid; }
+        .template h3 { color: #1976d2; margin-top: 0; text-align: center; }
+        .poem-line { display: flex; align-items: baseline; margin: 15px 0; }
+        .letter-box { width: 40px; height: 40px; border: 2px solid #2196f3; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.5em; font-weight: bold; color: #1976d2; margin-right: 20px; }
+        .line-space { flex: 1; border-bottom: 2px dotted #ccc; min-height: 30px; }
+        .decorative-border { border: 3px double #2196f3; padding: 20px; margin: 20px 0; border-radius: 12px; }
+        .instructions { background: #fff3e0; border-left: 5px solid #ff9800; padding: 20px; margin: 30px 0; border-radius: 5px; }
+        @media print { body { background: white; } .header { display: none; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📄 Acrostic Poem Templates</h1>
+        <p>Ready-to-use templates for your poetry workshop</p>
+    </div>
+
+    <div class="template">
+        <h3>My Name Acrostic</h3>
+        <div class="decorative-border">
+            <div class="poem-line">
+                <div class="letter-box">_</div>
+                <div class="line-space"></div>
+            </div>
+            <div class="poem-line">
+                <div class="letter-box">_</div>
+                <div class="line-space"></div>
+            </div>
+            <div class="poem-line">
+                <div class="letter-box">_</div>
+                <div class="line-space"></div>
+            </div>
+            <div class="poem-line">
+                <div class="letter-box">_</div>
+                <div class="line-space"></div>
+            </div>
+            <div class="poem-line">
+                <div class="letter-box">_</div>
+                <div class="line-space"></div>
+            </div>
+            <div class="poem-line">
+                <div class="letter-box">_</div>
+                <div class="line-space"></div>
+            </div>
+        </div>
+        <p style="text-align: center; color: #666;">Theme: _______________________</p>
+    </div>
+
+    <div class="template">
+        <h3>5-Letter Word Acrostic</h3>
+        <div class="decorative-border">
+            <div class="poem-line">
+                <div class="letter-box">_</div>
+                <div class="line-space"></div>
+            </div>
+            <div class="poem-line">
+                <div class="letter-box">_</div>
+                <div class="line-space"></div>
+            </div>
+            <div class="poem-line">
+                <div class="letter-box">_</div>
+                <div class="line-space"></div>
+            </div>
+            <div class="poem-line">
+                <div class="letter-box">_</div>
+                <div class="line-space"></div>
+            </div>
+            <div class="poem-line">
+                <div class="letter-box">_</div>
+                <div class="line-space"></div>
+            </div>
+        </div>
+        <p style="text-align: center; color: #666;">Word: _________ | Theme: _______________________</p>
+    </div>
+
+    <div class="instructions">
+        <strong>📋 Instructions:</strong> Print these templates for students who prefer structured support. Students can fill in the letter boxes with their chosen word and then craft their lines. Remember: each line should connect to create one unified story or feeling!
+    </div>
+</body>
+</html>`;
+        }
+
+        // Educational Enhancement Functions
+        function toggleSuccessCheckbox(checkbox) {
+            checkbox.classList.toggle('checked');
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            showSlide(0);
+            updateTimerDisplay();
+        });
+    </script>
+</body>
+</html>
+
+<!-- 
+Lesson: Acrostic Poems - From Word Lists to Word Art
+Duration: 45 minutes (note: slightly over 40 min target)
+Year Level: Years 3-6
+Curriculum: English - Creating Literature
+HITS: Setting Goals, Explicit Teaching, Worked Examples, Differentiated Teaching, Feedback
+VTLM: Planning, Attention & Focus, Knowledge & Memory, Supported Application, Retention & Recall
+Generated: 2025-07-23
+Updated: 2025-07-23 - Added visual elements and enhanced editable content per template v3.0.0
+-->
